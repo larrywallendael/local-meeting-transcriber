@@ -1,0 +1,23 @@
+appId: com.localmeetingtranscriber.app
+productName: Local Meeting Transcriber
+directories:
+  output: dist-electron
+files:
+  - dist/**/*
+  - resources/**/*
+  - package.json
+win:
+  target:
+    - target: portable
+      arch:
+        - x64
+  icon: resources/icon.ico
+extraResources:
+  - from: resources/whisper
+    to: whisper
+    filter:
+      - "**/*"
+  - from: resources/models
+    to: models
+    filter:
+      - "**/*"

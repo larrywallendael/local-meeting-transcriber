@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build outputs
+dist/
+dist-electron/
+*.exe
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Environment
+.env
+.env.local
+
+# Resources (large files)
+resources/models/*.gguf
+resources/models/*.bin
+resources/whisper/*.exe
+resources/whisper/*.dll
+resources/ffmpeg/*.exe
+
+# Temporary
+temp/
+*.tmp
