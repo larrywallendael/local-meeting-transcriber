@@ -3,3 +3,23 @@ There is no existing codebase.
 All requirements are defined in the SPRD.
 Do not assume prior decisions or architecture.
 Always ask before making technical tradeoffs..
+
+
+
+260125_First day on the project
+
+- Fixed Electron dev/build path issues (main/renderer output alignment)
+- Verified whisper.cpp integration end-to-end (FFmpeg + whisper-cli)
+- Added automatic audio conversion to 16kHz mono WAV via FFmpeg
+- Fixed language handling (auto-detect without unsupported flags)
+- Ensured jobs only complete when valid transcript output exists
+- Implemented Settings dropdown to select model from resources/models
+- Enforced settings application only after explicit Save
+- Split draft vs saved settings to avoid half-applied configurations
+- New jobs always use saved settings
+- Transcripts are generated incrementally and stored correctly
+- Confirmed EN and FR transcription working locally
+
+This commit brings the app to a fully functional local transcription V1.
+
+

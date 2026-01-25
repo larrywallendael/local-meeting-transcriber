@@ -1,0 +1,151 @@
+LOCAL MEETING TRANSCRIBER
+NEXT STEPS
+
+==================================================
+
+CURRENT STATUS
+
+* Local transcription works (EN + FR)
+* Queue, history, cancel, logging are working
+* FFmpeg + whisper pipeline is functional
+* Settings dropdown for model selection works
+* Settings are applied only after Save (good UX choice)
+
+---
+
+SHORT TERM (NEXT SESSIONS)
+
+1. PERFORMANCE DEFAULTS
+
+* Make the app faster by default
+* Default to a faster model:
+
+  * ggml-small.bin
+  * or ggml-medium-q5_0.bin
+* Keep model names raw (file names)
+* No automatic downloads
+* Users add models manually if needed
+
+2. SETTINGS UX
+
+* Add a small (i) info icon next to each setting
+* On hover, explain:
+
+  * what it affects (speed vs accuracy)
+  * the default value
+* Keep text simple and non-technical
+* Add a subtle “Reset to defaults” button
+
+3. PROGRESS & ETA (IMPORTANT)
+
+* Fix progress bar (currently stuck at 0%)
+* Use Whisper timestamps:
+
+  * extract last segment end timestamp
+  * compare with total audio length
+* Progress = last_timestamp / audio_length
+* Add rough ETA:
+
+  * approximate is fine
+  * stability > precision
+
+4. UI INFORMATION
+
+* Display audio length per job (queue + history)
+* Display model used per job (history)
+* Keep visuals subtle (secondary text)
+
+5. DRAG & DROP
+
+* Make drag & drop actually work
+* Support multiple files
+* Validate file formats:
+
+  * wav
+  * mp3
+  * m4a
+* Reject unsupported formats with a clear message
+
+6. SETTINGS PERSISTENCE
+
+* Persist saved settings across restarts
+* Store in AppData
+* Reload on app start
+
+---
+
+GLOBAL PLAN (BEYOND SHORT TERM)
+
+PHASE 1 – STABLE V1
+
+Goal:
+
+* Solid UX
+* Predictable performance
+* No surprises
+
+Scope:
+
+* Everything in “Short Term”
+* No new features beyond polish and correctness
+
+PHASE 2 – PERFORMANCE
+
+Goal:
+
+* Faster real-world performance
+* Better handling of long meetings
+
+Ideas:
+
+* Better default settings
+* Optional presets:
+
+  * Speed
+  * Balanced
+  * Quality
+* Improved silence skipping
+
+PHASE 3 – OUTPUT QUALITY
+
+Goal:
+
+* More readable transcripts without hallucinations
+
+Ideas:
+
+* Cleaner TXT formatting
+* Optional basic speaker markers
+
+PHASE 4 – SUMMARIZATION (LATER)
+
+Goal:
+
+* Local summarization only
+* Fully optional
+* Never overwrite raw transcript
+
+PHASE 5 – DISTRIBUTION
+
+Goal:
+
+* Share with others safely
+
+Ideas:
+
+* Portable .exe
+* Internal sharing first
+* Simple README
+
+==================================================
+
+END
+
+---
+
+This will look **clean and structured** in **Notepad**, **VS Code**, **Word**, or **any plain text viewer**.
+
+If you want, next time I can also:
+
+* compress it even further
+* or split it into “TODO.txt” + “ROADMAP.txt”
