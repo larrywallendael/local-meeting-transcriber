@@ -1,0 +1,5 @@
+This is a brand new project.
+There is no existing codebase.
+All requirements are defined in the SPRD.
+Do not assume prior decisions or architecture.
+Always ask before making technical tradeoffs..
