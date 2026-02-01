@@ -13,7 +13,8 @@
     "package": "npm run build && electron-builder",
     "package:win": "npm run build && electron-builder --win",
     "lint": "eslint . --ext .ts,.tsx",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "smoke-test": "node scripts/smoke-test.js"
   },
   "keywords": [
     "transcription",
@@ -61,6 +62,7 @@
     "files": [
       "dist/**/*",
       "resources/**/*",
+      "assets/**/*",
       "package.json"
     ],
     "win": {
@@ -72,7 +74,7 @@
           ]
         }
       ],
-      "icon": "resources/icon.ico"
+      "icon": "assets/icon.png"
     },
     "extraResources": [
       {

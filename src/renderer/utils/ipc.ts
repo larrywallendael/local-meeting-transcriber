@@ -42,8 +42,20 @@ export async function openTranscriptFolder(jobId: string): Promise<IPCResponse> 
   return await getApi().openTranscriptFolder(jobId);
 }
 
+export async function openAudio(jobId: string): Promise<IPCResponse> {
+  return await getApi().openAudio(jobId);
+}
+
 export async function getModels(): Promise<IPCResponse<string[]>> {
   return await getApi().getModels();
+}
+
+export async function getSettings(): Promise<IPCResponse<any>> {
+  return await getApi().getSettings();
+}
+
+export async function setSettings(settings: any): Promise<IPCResponse> {
+  return await getApi().setSettings(settings);
 }
 
 export function onJobProgress(callback: (data: any) => void): void {

@@ -1,0 +1,1 @@
+[0.00s -> 3.56s]  Ceci est un test avec un odieux en français.

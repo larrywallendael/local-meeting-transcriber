@@ -4,7 +4,7 @@ import * as fs from 'fs/promises';
 import * as path from 'path';
 import { Job, JobOptions } from './types';
 import { FileManager } from './fileManager';
-import { getWhisperPath, getModelPath, getFfmpegPath, getModelPathByName } from './paths';
+import { getWhisperPath, getModelPath, getFfmpegPath, getModelPathByName, getResourcesPath } from './paths';
 
 export class JobRunner extends EventEmitter {
   private fileManager: FileManager;
@@ -47,6 +47,9 @@ export class JobRunner extends EventEmitter {
     // Get audio duration for progress calculation
     const duration = await this.getAudioDuration(inputPath);
     this.audioDurations.set(job.id, duration);
+    if (duration > 0) {
+      this.emit('duration', { jobId: job.id, duration });
+    }
 
     // Create transcript file
     await fs.writeFile(outputPath, '', 'utf-8');
@@ -57,7 +60,7 @@ export class JobRunner extends EventEmitter {
       '-m', modelPath,
       '-f', inputPath,
       '-of', outputPath.replace('.txt', ''), // whisper.cpp adds .txt extension
-      '--output-txt',
+      '--output-srt',
       '--print-progress',
       '-l', 'auto',
     ];
@@ -65,7 +68,11 @@ export class JobRunner extends EventEmitter {
       args.push('-l', options.language);
     }
     if (options.vad) {
-      args.push('--vad');
+      const vadModelPath = await this.findVadModelPath();
+      if (!vadModelPath) {
+        throw new Error('VAD is enabled but no VAD model was found in resources/vad.');
+      }
+      args.push('--vad', '--vad-model', vadModelPath);
     }
     if (typeof options.beamSize === 'number') {
       args.push('-bs', String(options.beamSize));
@@ -95,6 +102,8 @@ export class JobRunner extends EventEmitter {
     let lastProgress = 0;
     let lastTimestamp = 0;
     let buffer = '';
+    const startTime = Date.now();
+    let lastProgressEmitAt = 0;
 
     // Handle stdout (transcription output and progress)
     process.stdout.on('data', async (data: Buffer) => {
@@ -123,25 +132,36 @@ export class JobRunner extends EventEmitter {
           }
 
           // Try to extract timestamp for more accurate progress
-          const timestampMatch = line.match(/\[(\d{2}):(\d{2}):(\d{2})\.(\d{3})\]/);
-          if (timestampMatch) {
-            const hours = parseInt(timestampMatch[1], 10);
-            const minutes = parseInt(timestampMatch[2], 10);
-            const seconds = parseInt(timestampMatch[3], 10);
-            const milliseconds = parseInt(timestampMatch[4], 10);
+          const fullTimestampMatch = line.match(/\[(\d{2}):(\d{2}):(\d{2})\.(\d{3})\s*-->\s*(\d{2}):(\d{2}):(\d{2})\.(\d{3})\]/);
+          const shortTimestampMatch = line.match(/\[(\d{2}):(\d{2}):(\d{2})\.(\d{3})\]/);
+          if (fullTimestampMatch) {
+            const hours = parseInt(fullTimestampMatch[5], 10);
+            const minutes = parseInt(fullTimestampMatch[6], 10);
+            const seconds = parseInt(fullTimestampMatch[7], 10);
+            const milliseconds = parseInt(fullTimestampMatch[8], 10);
             lastTimestamp = hours * 3600 + minutes * 60 + seconds + milliseconds / 1000;
-            
-            if (duration > 0) {
-              const progress = Math.min(100, (lastTimestamp / duration) * 100);
-              const remaining = duration - lastTimestamp;
-              const elapsed = Date.now() - job.createdAt;
-              const rate = lastTimestamp / (elapsed / 1000);
-              const eta = remaining / rate;
+          } else if (shortTimestampMatch) {
+            const hours = parseInt(shortTimestampMatch[1], 10);
+            const minutes = parseInt(shortTimestampMatch[2], 10);
+            const seconds = parseInt(shortTimestampMatch[3], 10);
+            const milliseconds = parseInt(shortTimestampMatch[4], 10);
+            lastTimestamp = hours * 3600 + minutes * 60 + seconds + milliseconds / 1000;
+          }
 
+          if (duration > 0 && lastTimestamp > 0) {
+            const progress = Math.min(100, (lastTimestamp / duration) * 100);
+            const remaining = Math.max(0, duration - lastTimestamp);
+            const elapsed = Math.max(1, Date.now() - startTime);
+            const rate = lastTimestamp / (elapsed / 1000);
+            const eta = rate > 0 ? remaining / rate : undefined;
+            const now = Date.now();
+
+            if (now - lastProgressEmitAt >= 2000 || progress >= 100) {
+              lastProgressEmitAt = now;
               this.emit('progress', {
                 jobId: job.id,
                 progress,
-                eta: Math.max(0, eta),
+                eta: eta && isFinite(eta) ? Math.max(0, eta) : undefined,
               });
             }
           }
@@ -165,12 +185,12 @@ export class JobRunner extends EventEmitter {
 
       if (code === 0) {
         // Process completed successfully
-        // Read the final output file (whisper.cpp writes to output.txt)
-        const finalOutputPath = outputPath.replace('.txt', '.txt');
         try {
-          const finalContent = await fs.readFile(finalOutputPath, 'utf-8');
-          await fs.writeFile(outputPath, finalContent, 'utf-8');
-          if (finalContent.trim().length === 0) {
+          const srtPath = outputPath.replace(/\.txt$/i, '.srt');
+          const srtContent = await fs.readFile(srtPath, 'utf-8');
+          const converted = this.convertSrtToTxt(srtContent);
+          await fs.writeFile(outputPath, converted, 'utf-8');
+          if (converted.trim().length === 0) {
             await this.logJob(job.id, 'Transcript is empty after completion');
             this.emit('error', {
               jobId: job.id,
@@ -178,10 +198,7 @@ export class JobRunner extends EventEmitter {
             });
             return;
           }
-          // Clean up whisper.cpp's output file if different
-          if (finalOutputPath !== outputPath) {
-            await fs.unlink(finalOutputPath).catch(() => {});
-          }
+          await fs.unlink(srtPath).catch(() => {});
         } catch (error) {
           console.error('Error reading final output:', error);
           this.emit('error', {
@@ -294,21 +311,44 @@ export class JobRunner extends EventEmitter {
     outputPath: string,
     duration: number
   ): Promise<void> {
-    // Parse whisper.cpp output format
-    // Format: [HH:MM:SS.mmm] --> text
-    const timestampRegex = /\[(\d{2}):(\d{2}):(\d{2})\.(\d{3})\]\s*-->\s*(.+)/;
-    const match = line.match(timestampRegex);
+    // Keep timestamped lines exactly as whisper outputs them
+    if (line.includes('-->') && line.includes('[')) {
+      await this.fileManager.appendFile(outputPath, `${line.trim()}\n`);
+      return;
+    }
 
-    if (match) {
-      const text = match[5].trim();
-      if (text) {
-        // Append to transcript file incrementally
-        await this.fileManager.appendFile(outputPath, `${text}\n`);
-      }
-    } else if (!line.includes('%') && line.trim() && !line.startsWith('whisper')) {
-      // Some lines might not have timestamps, append them anyway
+    if (!line.includes('%') && line.trim() && !line.startsWith('whisper')) {
       await this.fileManager.appendFile(outputPath, `${line.trim()}\n`);
     }
+  }
+
+  private async findVadModelPath(): Promise<string | null> {
+    const vadDir = path.join(getResourcesPath(), 'vad');
+    try {
+      const entries = await fs.readdir(vadDir, { withFileTypes: true });
+      const model = entries.find((entry) => entry.isFile());
+      if (!model) return null;
+      return path.join(vadDir, model.name);
+    } catch {
+      return null;
+    }
+  }
+
+  private convertSrtToTxt(content: string): string {
+    const blocks = content.split(/\r?\n\r?\n/).map((block) => block.trim()).filter(Boolean);
+    const lines: string[] = [];
+
+    for (const block of blocks) {
+      const parts = block.split(/\r?\n/);
+      if (parts.length < 2) continue;
+      const timestampLine = parts[1];
+      const text = parts.slice(2).join(' ').trim();
+      if (!text) continue;
+      const normalizedTimestamp = timestampLine.replace(/,/g, '.');
+      lines.push(`[${normalizedTimestamp}] ${text}`);
+    }
+
+    return lines.join('\n') + (lines.length > 0 ? '\n' : '');
   }
 
   private async logError(jobId: string, error: string): Promise<void> {
@@ -342,9 +382,37 @@ export class JobRunner extends EventEmitter {
   }
 
   private async getAudioDuration(audioPath: string): Promise<number> {
-    // For now, return 0 - we'll estimate from whisper output
-    // In a production app, you might use ffprobe or a Node.js audio library
-    // For V1, we'll rely on whisper.cpp's progress output
-    return 0;
+    const ffmpegPath = getFfmpegPath();
+    try {
+      await fs.access(ffmpegPath);
+    } catch {
+      return 0;
+    }
+
+    const parseDuration = (text: string): number => {
+      const match = text.match(/Duration:\s*(\d{2}):(\d{2}):(\d{2})\.(\d{2})/);
+      if (!match) return 0;
+      const hours = parseInt(match[1], 10);
+      const minutes = parseInt(match[2], 10);
+      const seconds = parseInt(match[3], 10);
+      const centiseconds = parseInt(match[4], 10);
+      return hours * 3600 + minutes * 60 + seconds + centiseconds / 100;
+    };
+
+    return await new Promise<number>((resolve) => {
+      const ffmpeg = spawn(ffmpegPath, ['-i', audioPath], { windowsHide: true });
+      let stderr = '';
+
+      ffmpeg.stderr.on('data', (data: Buffer) => {
+        stderr += data.toString('utf-8');
+      });
+
+      ffmpeg.on('close', () => {
+        const duration = parseDuration(stderr);
+        resolve(duration);
+      });
+
+      ffmpeg.on('error', () => resolve(0));
+    });
   }
 }

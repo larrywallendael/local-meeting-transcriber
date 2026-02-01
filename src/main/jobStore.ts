@@ -83,10 +83,11 @@ export class JobStore {
   async deleteJob(jobId: string): Promise<void> {
     const index = this.jobs.findIndex(j => j.id === jobId);
     if (index !== -1) {
+      const job = this.jobs[index];
       this.jobs.splice(index, 1);
       await this.save();
       // Clean up files
-      await this.fileManager.deleteJobFiles(jobId);
+      await this.fileManager.deleteJobFiles(jobId, job.localAudioPath, job.transcriptPath);
     }
   }
 

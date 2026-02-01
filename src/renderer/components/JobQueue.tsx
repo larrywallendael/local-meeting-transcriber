@@ -16,6 +16,7 @@ function formatTime(seconds?: number): string {
 function JobItem({ job }: { job: Job }) {
   const { cancelJob } = useJobs();
   const fileName = job.originalAudioPath.split(/[/\\]/).pop() || 'Unknown file';
+  const audioLength = job.audioDurationSeconds ? formatTime(job.audioDurationSeconds) : null;
 
   if (job.status === JobStatus.RUNNING) {
     return (
@@ -23,10 +24,13 @@ function JobItem({ job }: { job: Job }) {
         <CardContent className="p-4">
           <div className="flex items-center justify-between gap-4">
             <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-2">
+              <div className="flex items-center gap-2 mb-1">
                 <Play className="h-4 w-4 text-primary" />
                 <p className="font-medium truncate">{fileName}</p>
               </div>
+              {audioLength && (
+                <p className="text-xs text-muted-foreground mb-2">Audio length: {audioLength}</p>
+              )}
               <Progress value={job.progress || 0} className="h-2 mb-2" />
               <div className="flex items-center justify-between text-sm text-muted-foreground">
                 <span>{Math.round(job.progress || 0)}%</span>
@@ -58,6 +62,9 @@ function JobItem({ job }: { job: Job }) {
             <p className="font-medium truncate flex-1">{fileName}</p>
             <span className="text-sm text-muted-foreground">Waiting</span>
           </div>
+          {audioLength && (
+            <p className="text-xs text-muted-foreground mt-1">Audio length: {audioLength}</p>
+          )}
         </CardContent>
       </Card>
     );

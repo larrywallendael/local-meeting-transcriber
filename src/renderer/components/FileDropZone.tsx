@@ -11,6 +11,12 @@ export function FileDropZone({ options }: { options?: JobOptions }) {
   const { addJob } = useJobs();
   const [isDragging, setIsDragging] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
+  const supportedExtensions = ['.wav', '.mp3', '.m4a', '.ogg', '.flac', '.aac'];
+
+  const isSupported = (filePath: string) => {
+    const lower = filePath.toLowerCase();
+    return supportedExtensions.some((ext) => lower.endsWith(ext));
+  };
 
   const handleFiles = useCallback(async (filePaths: string[]) => {
     if (!filePaths || filePaths.length === 0) return;
@@ -45,15 +51,19 @@ export function FileDropZone({ options }: { options?: JobOptions }) {
     e.stopPropagation();
     setIsDragging(false);
     
-    // Extract file paths from dropped files
     const files = Array.from(e.dataTransfer.files);
-    const filePaths: string[] = [];
-    
-    // Note: In Electron, we need to get the actual file paths
-    // For drag & drop, we'll need to use a different approach
-    // For now, use file picker as fallback
-    alert('Please use the "Select Files" button. Drag & drop requires additional Electron integration.');
-  }, []);
+    const filePaths = files.map((file: any) => file.path).filter(Boolean);
+    const supported = filePaths.filter(isSupported);
+    const rejected = filePaths.filter((path) => !isSupported(path));
+
+    if (rejected.length > 0) {
+      alert(`Unsupported format:\n${rejected.join('\n')}\n\nSupported: ${supportedExtensions.join(', ')}`);
+    }
+
+    if (supported.length > 0) {
+      await handleFiles(supported);
+    }
+  }, [handleFiles]);
 
   const handleFilePicker = useCallback(async () => {
     try {

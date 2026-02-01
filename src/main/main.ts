@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, Notification, Menu } from 'electron';
 import path from 'path';
 import { FileManager } from './fileManager';
 import { JobStore } from './jobStore';
@@ -17,6 +17,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
+    icon: path.join(app.getAppPath(), 'assets', 'icon.png'),
     webPreferences: {
       preload: preloadPath,
       contextIsolation: true,
@@ -24,6 +25,9 @@ function createWindow() {
       sandbox: false,
     },
   });
+
+  Menu.setApplicationMenu(null);
+  mainWindow.setMenuBarVisibility(false);
 
   // Load the app
   const isDev = !app.isPackaged;
@@ -69,6 +73,9 @@ function createWindow() {
   });
 
   // Set up event forwarding from JobQueue to renderer
+  // #region agent log
+  fetch('http://127.0.0.1:7242/ingest/368470af-c559-4506-9ef3-01546ad20d86',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'src/main/main.ts:76',message:'createWindow jobQueue check',data:{hasJobQueue:!!jobQueue,hasMainWindow:!!mainWindow},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A'})}).catch(()=>{});
+  // #endregion
   if (jobQueue && mainWindow) {
     jobQueue.on('job-progress', (data: { jobId: string; progress: number; eta?: number }) => {
       mainWindow?.webContents.send(IPC_CHANNELS.JOB_PROGRESS, data);
@@ -78,9 +85,33 @@ function createWindow() {
       mainWindow?.webContents.send(IPC_CHANNELS.JOB_STATUS_UPDATE, data);
     });
 
-    jobQueue.on('job-complete', () => {
+    jobQueue.on('job-complete', async (jobId: string) => {
+      // #region agent log
+      fetch('http://127.0.0.1:7242/ingest/368470af-c559-4506-9ef3-01546ad20d86',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'src/main/main.ts:86',message:'job-complete handler entry',data:{jobId,hasJobQueue:!!jobQueue},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A'})}).catch(()=>{});
+      // #endregion
       // Trigger queue refresh
       mainWindow?.webContents.send(IPC_CHANNELS.JOB_STATUS_UPDATE, { type: 'refresh' });
+
+      const queue = jobQueue;
+      if (!queue) {
+        // #region agent log
+        fetch('http://127.0.0.1:7242/ingest/368470af-c559-4506-9ef3-01546ad20d86',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'src/main/main.ts:92',message:'jobQueue missing in handler',data:{jobId},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'B'})}).catch(()=>{});
+        // #endregion
+        return;
+      }
+
+      const job = await queue.getJob(jobId);
+      // #region agent log
+      fetch('http://127.0.0.1:7242/ingest/368470af-c559-4506-9ef3-01546ad20d86',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'src/main/main.ts:99',message:'job-complete job lookup',data:{jobId,found:!!job},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'C'})}).catch(()=>{});
+      // #endregion
+      const fileName = job?.originalAudioPath ? path.basename(job.originalAudioPath) : 'Audio file';
+      if (Notification.isSupported()) {
+        new Notification({
+          title: 'Transcription ready',
+          body: `${fileName} is ready`,
+        }).show();
+      }
+      mainWindow?.flashFrame(true);
     });
 
     jobQueue.on('job-error', () => {
@@ -108,6 +139,9 @@ async function initializeApp() {
   // Initialize job queue
   jobQueue = new JobQueue(jobStore, jobRunner, fileManager);
   await jobQueue.initialize();
+  // #region agent log
+  fetch('http://127.0.0.1:7242/ingest/368470af-c559-4506-9ef3-01546ad20d86',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'src/main/main.ts:112',message:'jobQueue initialized',data:{hasJobQueue:!!jobQueue},timestamp:Date.now(),sessionId:'debug-session',runId:'pre-fix',hypothesisId:'A'})}).catch(()=>{});
+  // #endregion
 
   // Set up IPC handlers
   setupIpcHandlers(jobQueue, fileManager);

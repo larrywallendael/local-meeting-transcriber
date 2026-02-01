@@ -14,6 +14,7 @@ interface JobContextType {
   deleteJob: (jobId: string) => Promise<void>;
   openTranscript: (jobId: string) => Promise<void>;
   openTranscriptFolder: (jobId: string) => Promise<void>;
+  openAudio: (jobId: string) => Promise<void>;
 }
 
 const JobContext = createContext<JobContextType | undefined>(undefined);
@@ -107,6 +108,14 @@ export function JobProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
+  const openAudio = useCallback(async (jobId: string) => {
+    try {
+      await ipc.openAudio(jobId);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to open audio file');
+    }
+  }, []);
+
   // Initial load
   useEffect(() => {
     const loadData = async () => {
@@ -160,6 +169,7 @@ export function JobProvider({ children }: { children: React.ReactNode }) {
         deleteJob,
         openTranscript,
         openTranscriptFolder,
+        openAudio,
       }}
     >
       {children}

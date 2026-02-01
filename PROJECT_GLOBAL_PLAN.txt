@@ -15,26 +15,48 @@ CURRENT STATUS
 
 SHORT TERM (NEXT SESSIONS)
 
-1. PERFORMANCE DEFAULTS
+Other: 
 
-* Make the app faster by default
-* Default to a faster model:
+1. Give a notification when ready - taht the app icon maybe has a little symbol or so - or syste mnotifaciton - make something easy, 
+not ctoo complex - easy to implement - if it is a notification with text, then see ... is ready (with the audio name) or so, think about it
+2. maning of the transcript txt file should be name of audio with transcript after 
+And be carefull when  creating mutliple of same oudio, should have some name rule to keep track - easy
+Same goes for stores audio files, should also keep the naming of input - and maybe you should also add it in the ui that you can access 
+the audio file
+3. Have electron an icon for the application (now just electon logo) - specific to this application, also there is in elecotron window 
+a bar on top that shows : file, edit, view, window, help - get rid of it, does not serve any purpose
 
-  * ggml-small.bin
-  * or ggml-medium-q5_0.bin
+4. Bug to fix: in .txt of transvript that gets produced , timestamp dissapeared for some reason after very long transcription... 
+in the txt files, should be kept for all - like whisper produces
+4.1. can yo actually start to do tests, with test cases, audio files (use the test ENG, test NL), can do others, just don't make the test too long 
+- use de audio files I already inputted, test audio's you can get access to, where you check the input and output, and do all type of tests, 
+just more globally that are necessary to have a working application - and then run the tests, so if fails, you fix it, debug
+
+
+
+1. Performance / speed that transcription gets produced at
+
+* Make the app faster by default in the setting choice (so settings and model choice)
+* I also added faster models: ... 
 * Keep model names raw (file names)
-* No automatic downloads
-* Users add models manually if needed
+
+
+
 
 2. SETTINGS UX
 
 * Add a small (i) info icon next to each setting
 * On hover, explain:
 
-  * what it affects (speed vs accuracy)
+  * what it affects (speed vs accuracy) - and if lower/higher does; keep very simple
   * the default value
 * Keep text simple and non-technical
 * Add a subtle “Reset to defaults” button
+
+* Persist saved settings across restarts, so you don't always lose your settings
+
+
+
 
 3. PROGRESS & ETA (IMPORTANT)
 
@@ -43,34 +65,31 @@ SHORT TERM (NEXT SESSIONS)
 
   * extract last segment end timestamp
   * compare with total audio length
-* Progress = last_timestamp / audio_length
+* Progress = last_timestamp / audio_length - or make a suggestion for tracking this - should not take a lot of computing power, can be done every 2 min or so - 
+you decide, or when file gets written again the txt
 * Add rough ETA:
 
   * approximate is fine
-  * stability > precision
 
-4. UI INFORMATION
+4. UI INFORMATION: audio lenght
 
 * Display audio length per job (queue + history)
-* Display model used per job (history)
 * Keep visuals subtle (secondary text)
 
 5. DRAG & DROP
 
-* Make drag & drop actually work
-* Support multiple files
-* Validate file formats:
+* Make drag & drop actually work of audio in electron , because nog gives bug "please use "select files" button. 
+drag & drop requires additional integration
 
-  * wav
-  * mp3
-  * m4a
+
 * Reject unsupported formats with a clear message
 
-6. SETTINGS PERSISTENCE
 
-* Persist saved settings across restarts
-* Store in AppData
-* Reload on app start
+
+
+
+
+
 
 ---
 
@@ -117,15 +136,7 @@ Ideas:
 * Cleaner TXT formatting
 * Optional basic speaker markers
 
-PHASE 4 – SUMMARIZATION (LATER)
-
-Goal:
-
-* Local summarization only
-* Fully optional
-* Never overwrite raw transcript
-
-PHASE 5 – DISTRIBUTION
+PHASE 4 – DISTRIBUTION
 
 Goal:
 
@@ -136,16 +147,14 @@ Ideas:
 * Portable .exe
 * Internal sharing first
 * Simple README
+* Very nice UI (see inspiration)
 
-==================================================
 
-END
 
----
+v2 – SUMMARIZATION (LATER)
 
-This will look **clean and structured** in **Notepad**, **VS Code**, **Word**, or **any plain text viewer**.
+Goal:
 
-If you want, next time I can also:
-
-* compress it even further
-* or split it into “TODO.txt” + “ROADMAP.txt”
+* Local summarization only
+* Fully optional
+* Never overwrite raw transcript

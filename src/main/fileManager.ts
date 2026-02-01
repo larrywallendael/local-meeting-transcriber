@@ -12,6 +12,7 @@ export class FileManager {
   private audioDir: string;
   private logsDir: string;
   private tempDir: string;
+  private settingsFile: string;
 
   constructor() {
     this.appDataDir = APP_DATA_DIR;
@@ -20,6 +21,7 @@ export class FileManager {
     this.audioDir = path.join(this.appDataDir, 'audio');
     this.logsDir = path.join(this.appDataDir, 'logs');
     this.tempDir = path.join(this.appDataDir, 'temp');
+    this.settingsFile = path.join(this.appDataDir, 'settings.json');
   }
 
   async initialize(): Promise<void> {
@@ -36,13 +38,54 @@ export class FileManager {
     } catch {
       await fs.writeFile(this.jobsFile, JSON.stringify([], null, 2));
     }
+
+    // Initialize settings.json if it doesn't exist
+    try {
+      await fs.access(this.settingsFile);
+    } catch {
+      await fs.writeFile(this.settingsFile, JSON.stringify({}, null, 2));
+    }
   }
 
-  async copyAudioFile(originalPath: string, jobId: string): Promise<string> {
+  private sanitizeBaseName(baseName: string): string {
+    const trimmed = baseName.trim();
+    const safe = trimmed.replace(/[<>:"/\\|?*\x00-\x1F]/g, '_');
+    return safe.length > 0 ? safe : 'audio';
+  }
+
+  private async pathExists(filePath: string): Promise<boolean> {
+    try {
+      await fs.access(filePath);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  async createJobFilePaths(originalPath: string, jobId: string): Promise<{ localAudioPath: string; transcriptPath: string }> {
     const ext = path.extname(originalPath);
-    const localPath = path.join(this.audioDir, `${jobId}${ext}`);
+    const rawBase = path.basename(originalPath, ext);
+    const base = this.sanitizeBaseName(rawBase);
+
+    let index = 1;
+    while (true) {
+      const suffix = index === 1 ? '' : `__${index}`;
+      const audioName = `${base}__audio${suffix}${ext}`;
+      const transcriptName = `${base}__transcript${suffix}.txt`;
+
+      const audioPath = path.join(this.audioDir, audioName);
+      const transcriptPath = path.join(this.transcriptsDir, transcriptName);
+      const exists = await this.pathExists(audioPath) || await this.pathExists(transcriptPath);
+
+      if (!exists) {
+        return { localAudioPath: audioPath, transcriptPath };
+      }
+      index += 1;
+    }
+  }
+
+  async copyAudioFile(originalPath: string, localPath: string): Promise<void> {
     await fs.copyFile(originalPath, localPath);
-    return localPath;
   }
 
   getTranscriptPath(jobId: string): string {
@@ -63,17 +106,16 @@ export class FileManager {
     return tempDir;
   }
 
-  async deleteJobFiles(jobId: string): Promise<void> {
+  async deleteJobFiles(jobId: string, localAudioPath?: string, transcriptPath?: string): Promise<void> {
     try {
       // Delete transcript
-      const transcriptPath = this.getTranscriptPath(jobId);
-      await fs.unlink(transcriptPath).catch(() => {}); // Ignore if doesn't exist
+      if (transcriptPath) {
+        await fs.unlink(transcriptPath).catch(() => {});
+      }
 
       // Delete audio file
-      const audioFiles = await fs.readdir(this.audioDir);
-      const audioFile = audioFiles.find(f => f.startsWith(jobId));
-      if (audioFile) {
-        await fs.unlink(path.join(this.audioDir, audioFile)).catch(() => {});
+      if (localAudioPath) {
+        await fs.unlink(localAudioPath).catch(() => {});
       }
 
       // Delete log file
@@ -107,5 +149,22 @@ export class FileManager {
 
   getJobsFilePath(): string {
     return this.jobsFile;
+  }
+
+  getSettingsFilePath(): string {
+    return this.settingsFile;
+  }
+
+  async readSettings<T = any>(): Promise<T> {
+    try {
+      const content = await fs.readFile(this.settingsFile, 'utf-8');
+      return JSON.parse(content) as T;
+    } catch {
+      return {} as T;
+    }
+  }
+
+  async writeSettings(settings: any): Promise<void> {
+    await fs.writeFile(this.settingsFile, JSON.stringify(settings, null, 2), 'utf-8');
   }
 }

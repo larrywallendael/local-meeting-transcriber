@@ -5,6 +5,20 @@ Do not assume prior decisions or architecture.
 Always ask before making technical tradeoffs..
 
 
+UI rules:
+
+• #EFE9DC — earth beige
+Use as main app background. Warm, soft, and makes the blue pop without contrast fatigue.
+
+• #9DBAE6 — your primary blue
+Perfect for cards, highlights, focus states, selections, info blocks.
+
+• #2F2F2F — charcoal
+Primary text, icons, headings. Much better than pure black on beige.
+
+• #8B8F94 — muted grey
+Secondary text, metadata, disabled states.
+
 
 260125_First day on the project
 

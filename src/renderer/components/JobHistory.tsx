@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FileText, FolderOpen, Trash2, CheckCircle2, XCircle, Ban } from 'lucide-react';
+import { FileText, FolderOpen, Trash2, CheckCircle2, XCircle, Ban, FileAudio } from 'lucide-react';
 import { Card, CardContent } from './ui/card';
 import { Button } from './ui/button';
 import { useJobs } from '../contexts/JobContext';
@@ -37,9 +37,12 @@ function getStatusText(status: JobStatus): string {
 }
 
 function HistoryItem({ job }: { job: Job }) {
-  const { openTranscript, openTranscriptFolder, deleteJob } = useJobs();
+  const { openTranscript, openTranscriptFolder, openAudio, deleteJob } = useJobs();
   const [isDeleting, setIsDeleting] = useState(false);
   const fileName = job.originalAudioPath.split(/[/\\]/).pop() || 'Unknown file';
+  const audioLength = job.audioDurationSeconds
+    ? `${Math.floor(job.audioDurationSeconds / 60)}:${Math.floor(job.audioDurationSeconds % 60).toString().padStart(2, '0')}`
+    : null;
 
   const handleDelete = async () => {
     if (!confirm(`Are you sure you want to delete "${fileName}"?`)) {
@@ -70,12 +73,23 @@ function HistoryItem({ job }: { job: Job }) {
               {job.completedAt && (
                 <span>{formatDate(job.completedAt)}</span>
               )}
+              {audioLength && (
+                <span>Audio length: {audioLength}</span>
+              )}
             </div>
             {job.errorMessage && (
               <p className="text-sm text-red-600 mt-1">{job.errorMessage}</p>
             )}
           </div>
           <div className="flex items-center gap-2 shrink-0">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => openAudio(job.id)}
+              title="Open audio file"
+            >
+              <FileAudio className="h-4 w-4" />
+            </Button>
             {job.status === JobStatus.DONE && (
               <>
                 <Button

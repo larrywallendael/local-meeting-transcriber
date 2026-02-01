@@ -1,0 +1,2 @@
+[0.00s -> 6.56s]  This is a test memo. I hope that my local meeting transcriber will
+[7.86s -> 11.66s]  Be able to generate a text based on this

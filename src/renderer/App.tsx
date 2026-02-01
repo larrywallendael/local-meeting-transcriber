@@ -1,5 +1,5 @@
 import React from 'react';
-import { Shield, FileAudio } from 'lucide-react';
+import { Shield, FileAudio, Info } from 'lucide-react';
 import { JobProvider } from './contexts/JobContext';
 import { FileDropZone } from './components/FileDropZone';
 import { JobQueueDisplay } from './components/JobQueue';
@@ -10,53 +10,118 @@ import { JobOptions } from '../shared/types';
 import * as ipc from './utils/ipc';
 
 function App() {
+  const pickPreferredModel = (models: string[]): string | undefined => {
+    const normalized = models.map((name) => name.toLowerCase());
+    const findByKeyword = (keyword: string) => {
+      const index = normalized.findIndex((name) => name.includes(keyword));
+      return index >= 0 ? models[index] : undefined;
+    };
+
+    return (
+      findByKeyword('small') ||
+      findByKeyword('base') ||
+      findByKeyword('medium') ||
+      findByKeyword('large') ||
+      findByKeyword('tiny') ||
+      models[0]
+    );
+  };
+
+  const getDefaultOptions = (models: string[]): JobOptions => ({
+    modelName: pickPreferredModel(models) || 'ggml-medium.bin',
+    language: 'auto',
+    vad: false,
+    beamSize: 2,
+    bestOf: 2,
+    noFallback: true,
+    threads: 4,
+  });
+
   const [availableModels, setAvailableModels] = React.useState<string[]>([]);
   const [isSettingsOpen, setIsSettingsOpen] = React.useState(false);
   const [draftOptions, setDraftOptions] = React.useState<JobOptions>({
     modelName: 'ggml-medium.bin',
     language: 'auto',
     vad: false,
-    beamSize: 5,
-    bestOf: 5,
-    noFallback: false,
-    threads: 8,
+    beamSize: 2,
+    bestOf: 2,
+    noFallback: true,
+    threads: 4,
   });
   const [savedOptions, setSavedOptions] = React.useState<JobOptions>(draftOptions);
+  const [isSaving, setIsSaving] = React.useState(false);
 
   React.useEffect(() => {
-    const loadModels = async () => {
+    const loadModelsAndSettings = async () => {
       try {
         if (!ipc.isAvailable()) {
           return;
         }
-        const response = await ipc.getModels();
-        if (response.success && Array.isArray(response.data)) {
-          setAvailableModels(response.data);
-          if (response.data.length > 0) {
-            setDraftOptions(prev => ({
-              ...prev,
-              modelName: prev.modelName && response.data.includes(prev.modelName)
-                ? prev.modelName
-                : response.data[0],
-            }));
-            setSavedOptions(prev => ({
-              ...prev,
-              modelName: prev.modelName && response.data.includes(prev.modelName)
-                ? prev.modelName
-                : response.data[0],
-            }));
-          }
+        const [modelsResponse, settingsResponse] = await Promise.all([
+          ipc.getModels(),
+          ipc.getSettings(),
+        ]);
+
+        const models = Array.isArray(modelsResponse.data) ? modelsResponse.data : [];
+        if (modelsResponse.success) {
+          setAvailableModels(models);
         }
+
+        const defaults = getDefaultOptions(models);
+        const savedFromDisk: JobOptions | undefined = settingsResponse?.data?.transcriptionOptions;
+        const resolvedModel = savedFromDisk?.modelName && models.includes(savedFromDisk.modelName)
+          ? savedFromDisk.modelName
+          : defaults.modelName;
+        const resolvedOptions = {
+          ...defaults,
+          ...savedFromDisk,
+          modelName: resolvedModel,
+        };
+
+        setDraftOptions(resolvedOptions);
+        setSavedOptions(resolvedOptions);
       } catch {
         // Ignore model discovery errors; fallback to manual defaults
       }
     };
-    loadModels();
+    loadModelsAndSettings();
   }, []);
 
-  const saveSettings = () => {
-    setSavedOptions(draftOptions);
-    setIsSettingsOpen(false);
+  const saveSettings = async () => {
+    setIsSaving(true);
+    try {
+      const payload = { transcriptionOptions: draftOptions };
+      const response = await ipc.setSettings(payload);
+      if (!response.success) {
+        throw new Error(response.error || 'Failed to save settings');
+      }
+      setSavedOptions(draftOptions);
+      setIsSettingsOpen(false);
+    } catch (error) {
+      console.error('Failed to save settings:', error);
+      alert('Failed to save settings. Please try again.');
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const resetToDefaults = async () => {
+    const defaults = getDefaultOptions(availableModels);
+    setDraftOptions(defaults);
+    setIsSaving(true);
+    try {
+      const payload = { transcriptionOptions: defaults };
+      const response = await ipc.setSettings(payload);
+      if (!response.success) {
+        throw new Error(response.error || 'Failed to save settings');
+      }
+      setSavedOptions(defaults);
+    } catch (error) {
+      console.error('Failed to reset settings:', error);
+      alert('Failed to reset settings. Please try again.');
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   return (
@@ -94,7 +159,13 @@ function App() {
                   </div>
                   <div className="grid grid-cols-1 gap-4">
                     <div>
-                      <label className="text-sm font-medium">Model</label>
+                      <label className="text-sm font-medium inline-flex items-center gap-1">
+                        Model
+                        <Info
+                          className="h-3.5 w-3.5 text-muted-foreground"
+                          title={`Smaller models are faster, larger are more accurate. Default: ${getDefaultOptions(availableModels).modelName}`}
+                        />
+                      </label>
                       <select
                         className="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                         value={draftOptions.modelName || ''}
@@ -116,7 +187,13 @@ function App() {
 
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="text-sm font-medium">Language</label>
+                      <label className="text-sm font-medium inline-flex items-center gap-1">
+                        Language
+                        <Info
+                          className="h-3.5 w-3.5 text-muted-foreground"
+                          title="Auto detects the language. Setting one can be more accurate. Default: auto."
+                        />
+                      </label>
                         <input
                           className="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                           value={draftOptions.language || ''}
@@ -125,7 +202,13 @@ function App() {
                         />
                       </div>
                       <div>
-                        <label className="text-sm font-medium">Threads</label>
+                      <label className="text-sm font-medium inline-flex items-center gap-1">
+                        Threads
+                        <Info
+                          className="h-3.5 w-3.5 text-muted-foreground"
+                          title="More threads can be faster but uses more CPU. Default: 4."
+                        />
+                      </label>
                         <input
                           type="number"
                           className="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
@@ -139,7 +222,13 @@ function App() {
 
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="text-sm font-medium">Beam size</label>
+                      <label className="text-sm font-medium inline-flex items-center gap-1">
+                        Beam size
+                        <Info
+                          className="h-3.5 w-3.5 text-muted-foreground"
+                          title="Higher = more accurate but slower. Default: 2."
+                        />
+                      </label>
                         <input
                           type="number"
                           className="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
@@ -150,7 +239,13 @@ function App() {
                         />
                       </div>
                       <div>
-                        <label className="text-sm font-medium">Best of</label>
+                      <label className="text-sm font-medium inline-flex items-center gap-1">
+                        Best of
+                        <Info
+                          className="h-3.5 w-3.5 text-muted-foreground"
+                          title="Higher = more accurate but slower. Default: 2."
+                        />
+                      </label>
                         <input
                           type="number"
                           className="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
@@ -170,6 +265,10 @@ function App() {
                           onChange={(e) => setDraftOptions(prev => ({ ...prev, vad: e.target.checked }))}
                         />
                         Enable VAD
+                        <Info
+                          className="h-3.5 w-3.5 text-muted-foreground"
+                          title="Skips silence to speed things up. Requires a VAD model in resources/vad. Default: off."
+                        />
                       </label>
                       <label className="flex items-center gap-2 text-sm">
                         <input
@@ -178,14 +277,30 @@ function App() {
                           onChange={(e) => setDraftOptions(prev => ({ ...prev, noFallback: e.target.checked }))}
                         />
                         No fallback
+                        <Info
+                          className="h-3.5 w-3.5 text-muted-foreground"
+                          title="Disables extra decoding passes for speed. Default: on."
+                        />
                       </label>
                     </div>
 
                     <div className="flex items-center justify-between gap-3 pt-2">
-                      <p className="text-xs text-muted-foreground">
-                        Saved model: {savedOptions.modelName || 'auto'}
-                      </p>
-                      <Button onClick={saveSettings}>Save</Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={resetToDefaults}
+                        disabled={isSaving}
+                      >
+                        Reset to defaults
+                      </Button>
+                      <div className="flex items-center gap-3">
+                        <p className="text-xs text-muted-foreground">
+                          Saved model: {savedOptions.modelName || 'auto'}
+                        </p>
+                        <Button onClick={saveSettings} disabled={isSaving}>
+                          {isSaving ? 'Saving...' : 'Save'}
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </div>

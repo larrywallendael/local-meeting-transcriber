@@ -110,6 +110,25 @@ The application stores data in:
 - **shadcn/ui** - UI components
 - **whisper.cpp** - Local transcription engine
 
+## Manual Test Checklist
+
+Use short test files from `C:\Users\vanwallendael.larry\AppData\Roaming\LocalMeetingTranscriber\audio` (FR/ENG).
+
+- Settings persistence across restart
+- Model dropdown lists available files
+- Reset to defaults works
+- Drag & drop accepts supported formats and rejects others
+- Progress bar and ETA move during transcription
+- Audio length shows in queue and history
+- Transcript keeps timestamps end-to-end
+- Audio and transcript file names match original base name
+- Open transcript, open folder, open audio buttons work
+- Completion notification appears with filename
+
+## Smoke Test (Optional)
+
+Run `npm run smoke-test` to validate that whisper produces non-empty transcripts with timestamps for short FR/ENG files in the test audio folder. Override the folder with `TEST_AUDIO_DIR`.
+
 ## License
 
 MIT

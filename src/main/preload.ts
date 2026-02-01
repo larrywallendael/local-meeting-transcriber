@@ -17,7 +17,10 @@ contextBridge.exposeInMainWorld('electronAPI', {
   // File operations
   openTranscript: (jobId: string) => ipcRenderer.invoke(IPC_CHANNELS.OPEN_TRANSCRIPT, jobId),
   openTranscriptFolder: (jobId: string) => ipcRenderer.invoke(IPC_CHANNELS.OPEN_TRANSCRIPT_FOLDER, jobId),
+  openAudio: (jobId: string) => ipcRenderer.invoke(IPC_CHANNELS.OPEN_AUDIO, jobId),
   getModels: () => ipcRenderer.invoke(IPC_CHANNELS.GET_MODELS),
+  getSettings: () => ipcRenderer.invoke(IPC_CHANNELS.GET_SETTINGS),
+  setSettings: (settings: any) => ipcRenderer.invoke(IPC_CHANNELS.SET_SETTINGS, settings),
   
   // Event listeners
   onJobProgress: (callback: (data: any) => void) => {

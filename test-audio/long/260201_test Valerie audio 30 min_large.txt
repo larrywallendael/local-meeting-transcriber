@@ -1,0 +1,464 @@
+[0.00s -> 25.22s]  Bonjour, ça va ?
+[25.22s -> 25.56s]  Bonjour.
+[26.56s -> 27.74s]  Ça va, merci.
+[28.14s -> 28.86s]  Bonjour, Marie.
+[28.86s -> 36.56s]  Je vais mettre Catherine au revoir, mais ça ne va pas tarder, je pense.
+[37.46s -> 37.98s]  Bonjour, Adélie.
+[38.92s -> 39.48s]  Bonjour, Frédéric.
+[39.62s -> 42.14s]  J'ai l'air plutôt en ton serre, j'ai jeté un œil.
+[43.04s -> 44.78s]  On travaille tous en flux tendu, là.
+[45.16s -> 46.22s]  C'est trop éviteur.
+[46.58s -> 48.14s]  Il n'y a pas de...
+[48.14s -> 53.32s]  J'essaie de ne pas vous bloquer, mais j'ai eu quelques dossiers internes prioritaires
+[53.32s -> 56.74s]  et des dossiers COE compliqués, là, et voilà.
+[57.36s -> 58.74s]  Du coup, c'est ce que je dis, c'est que...
+[58.86s -> 62.72s]  Le reste ne me semble pas poser de problème, donc je vais l'envoyer directement au COE.
+[62.84s -> 64.76s]  Non, il n'y avait pas d'enjeu majeur.
+[65.24s -> 68.96s]  Qu'est-ce qu'on a comme enjeu majeur, éventuellement ?
+[68.96s -> 71.14s]  Non, ce n'est pas un enjeu majeur.
+[71.26s -> 75.56s]  Ce que je vois apparaître, mais du coup, je le vois dans les demandes d'invitation aux ateliers,
+[76.50s -> 79.80s]  parce qu'on a quand même des métiers qui s'étaient positionnés sur les invités,
+[79.80s -> 83.80s]  parce que c'est le métier d'inviter les personnes qu'ils souhaitent.
+[85.02s -> 88.80s]  Et du coup, là, je vois quand même qu'effectivement, ils sont en train de rajouter...
+[88.86s -> 89.90s]  Je parle du patrimoine.
+[90.12s -> 97.76s]  Vous avez compris, ils sont chargés, là, maintenant, de la standardisation sur le traitement du patrimoine, on va dire.
+[98.70s -> 106.70s]  Et comme le disait Fabien, hier, du coup, on n'avait pas des fonctions propriétaires patrimoine.
+[108.02s -> 111.68s]  Mais en fait, ils se sont mis d'accord entre eux.
+[112.16s -> 114.10s]  Ils nous ont dit, c'est nous qui centralisons.
+[114.20s -> 118.74s]  Mais c'est vrai qu'hier, on n'a peut-être pas assez évoqué la partie patrimoine, même si on en a parlé.
+[118.86s -> 121.32s]  Et on le retrouve quand même dans leur document.
+[121.74s -> 126.24s]  Alors, il faut peut-être un peu plus chercher, mais on le retrouve quand même dans le document.
+[129.24s -> 135.86s]  Mais du coup, je m'interrogeais sur cette partie un peu politico, quand même, à prendre avec des pincettes,
+[136.50s -> 140.56s]  parce que du coup, on a un sujet de base d'eau qui doit se transformer.
+[142.92s -> 145.60s]  Et que, ils le savent, ça a été porté à la gouvernance.
+[145.60s -> 148.84s]  J'ai voulu envoyer le dossier, puisqu'en fait, on a NDA.
+[148.94s -> 152.68s]  Je vais vous envoyer le dossier du mot numérique, comme ça, vous pourrez un petit peu voir ce qu'on a mis dedans.
+[153.90s -> 160.38s]  Même si je ne l'écris pas clairement à cette partie base d'eau, ça avait créé beaucoup d'échauffement.
+[161.62s -> 166.66s]  Mais en soi, ça avait été bien évoqué à l'oral, très clairement, parce que du coup, il y a une étude qui va être lancée.
+[167.36s -> 169.48s]  Mais malgré tout, c'est un sujet un peu politique.
+[169.48s -> 178.24s]  Et c'est vrai que ce n'est pas à DGXRT de porter cette responsabilité, mais bien aux fonctions propriétaires.
+[178.86s -> 181.92s]  Donc, c'est quand même bien leur métier en priorité.
+[182.62s -> 188.30s]  Du coup, il y a un petit point d'intention dans le compte-rendu que je vous ai donné.
+[188.64s -> 193.04s]  J'ai souligné quatre sujets, parce qu'il y en a un, effectivement, sur les bases documentaires.
+[193.44s -> 194.84s]  Et ça, soit vous le laissez...
+[194.84s -> 196.94s]  On va le laisser, on va peut-être le rédiger.
+[196.94s -> 201.74s]  Je n'ai pas vu, c'est peut-être certainement très bien ce que tu as fait, ou vous, je ne sais pas qui, tu n'as rien dessus.
+[202.80s -> 208.08s]  Mais voilà, s'il y a besoin, je vais l'aplanir, pas parce que je veux le masquer,
+[208.08s -> 208.80s]  mais parce que je veux le faire.
+[208.80s -> 213.66s]  Je sais que ça peut être un peu tendu, bien que tout le monde en ait conscience, y compris en COE, ça a été remonté.
+[216.70s -> 218.20s]  Donc, voilà, sur cette partie-là.
+[218.30s -> 221.28s]  Mais donc, ça me permet de faire le lien avec le patrimoine.
+[221.84s -> 222.54s]  Donc, voilà.
+[222.78s -> 230.28s]  Et donc, là, ils souhaitaient inviter quelqu'un de leur équipe, qui est René-Léna Briegel,
+[231.02s -> 235.64s]  qui travaille notamment aussi sur la GMAO et qui a quand même bien une bonne vision de ces sujets,
+[235.80s -> 237.34s]  qui était là aussi sur les jumeaux numériques.
+[238.12s -> 238.60s]  Mais malgré tout...
+[238.80s -> 242.74s]  Je m'interroge, je ne vous cache pas, si finalement, on ne va pas se faire un mini-atelier
+[242.74s -> 248.80s]  avec Bruno Lavessière et Francis Robert, qui sont les directeurs de la partie patrimoine,
+[249.42s -> 251.40s]  côté EU, côté plateforme.
+[252.32s -> 252.56s]  D'accord.
+[252.64s -> 255.90s]  C'était à voir avec vous ce que vous en pensiez, parce que...
+[255.90s -> 259.86s]  Mais je pense que c'est un point qui apparaît vraiment comme un point de transformation important.
+[260.52s -> 266.08s]  Et je pense qu'il faut quand même peut-être aller chercher le verbatim des intéressés,
+[266.14s -> 268.26s]  parce que c'est leur équipe, ce n'est pas celle de DGO.
+[268.80s -> 269.66s]  Oui, bien sûr.
+[271.16s -> 275.36s]  Et si un message doit être porté, c'est quand même bien eux qui doivent le valider.
+[275.60s -> 278.02s]  Comment pensez-vous ?
+[278.02s -> 279.50s]  En tout cas, c'était un point d'attente.
+[280.00s -> 280.64s]  Oui, c'est ce que j'ai dit.
+[280.70s -> 285.18s]  Pardon, c'est le point que j'ai discuté avec Frédéric, effectivement, en débriefant le sujet.
+[285.40s -> 290.20s]  C'est qu'il faut être certain que les visions soient alignées.
+[290.48s -> 292.60s]  Et une finale, quand même, l'utilisateur final, il n'a pas de forme.
+[292.60s -> 297.20s]  Donc, ça nous paraissait utile, nous, d'avoir cet échange-là.
+[297.84s -> 298.78s]  Je voulais juste m'assurer.
+[298.80s -> 299.52s]  Vous étiez d'accord.
+[299.64s -> 305.16s]  Moi, je pense que c'est nécessaire, là, parce qu'en fait, ils se sont mis d'accord,
+[305.26s -> 309.64s]  même avec ces équipes-là, pour que ce soit centralisé avec DGXRT.
+[309.74s -> 315.00s]  Mais vu l'enjeu que ça représenterait, je trouverais ça même inconfortable de demander
+[315.00s -> 322.70s]  à DGXRT, c'est long à parler, de finalement porter cette responsabilité.
+[322.70s -> 328.38s]  Et quand bien même, après, dans notre process avec Catherine, et avec vous aussi, bien sûr,
+[328.80s -> 338.46s]  c'est prévu qu'avant qu'il y ait mi-mars, enfin, le livrable, chaque direction valide ce qu'il y a dans le document qui les concerne, bien évidemment.
+[338.90s -> 345.36s]  D'ailleurs, il faut qu'on se prévoie un petit temps d'avance, parce que du coup, vous allez voir qu'on va jouer sur les mots.
+[347.68s -> 352.96s]  Après, à la limite, à un moment donné, je ferai un peu l'arbitre en disant, l'essentiel, c'est que vous ayez votre livrable,
+[352.96s -> 357.78s]  quitte à ce qu'après, ils disent, bon, écoutez, on a quand même encore un bon mois pour modifier le document pour le CSI.
+[357.78s -> 365.92s]  Donc, on a encore le temps de discuter si on met tel verbe ou tel verbe, parce que le jumeau numérique, c'est ce qui s'est passé.
+[367.38s -> 373.94s]  Et voilà, on a quand même très peu de temps. Je préfère qu'on se concentre sur l'essentiel des messages apportés avant tout ça, qui était du word.
+[374.08s -> 380.32s]  OK, donc, j'ai noté le CR, je vais regarder pour voir s'il faut planir un peu, puisque du coup, ça vient d'une autre direction.
+[381.32s -> 387.76s]  Ça ne serait quand même pas une surprise que ça ait été porté à la gouvernance, mais j'y vois quand même beaucoup, beaucoup de transformations.
+[387.78s -> 399.84s]  En tout cas, des répercussions. Voilà. Là, je vois donc que DGXRT veut bien intégrer la personne qui gère sa GMAO.
+[400.98s -> 412.00s]  La personne que j'ai recueillie tout à l'heure. Donc, voilà, on a des petits points de calage par ailleurs, par rapport à ça.
+[412.00s -> 417.20s]  Donc, vous avez vu mon mail aussi. Vous avez compris, je vous l'avais dit, j'avais débriefé avec David.
+[417.78s -> 425.90s]  À nos échanges avec la NXT et nos échanges avec vous, rien que j'ai mentionné, vous étiez extrêmement délicats.
+[428.40s -> 437.40s]  Mais du coup, il y a aussi des choses que vous ne voyez pas et c'est tant mieux qu'on vous ait déchargé l'organisation des ateliers.
+[438.42s -> 447.36s]  Je le pressentais, ce qui se passe. Il y avait un peu de pression, de cacophonie à droite, à gauche, qui ont fait que du coup, j'ai souhaité qu'ils puissent,
+[447.78s -> 457.78s]  porter un message assez fort. On peut dire, on redemande bien à tout le monde de bien se réaligner, se préparer, tel que ça avait été demandé depuis des mois.
+[457.78s -> 465.24s]  Parce que du coup, ça donne l'impression que c'est pas parce qu'en fait, il a été reproché pour tout vous dire que vous n'en voyez rien avant.
+[465.24s -> 474.40s]  Mais en vrai, je ne vois pas comment ça se justifiait alors que la méthodo et l'attendu pour le premier atelier chez nous était dit.
+[474.40s -> 476.40s]  De nombreuses fois.
+[476.40s -> 476.90s]  De nombreuses fois.
+[476.90s -> 477.40s]  De nombreuses fois.
+[477.40s -> 477.90s]  De nombreuses fois.
+[477.90s -> 483.90s]  Traçable, je vous le dis, donc en état d'aise, et que c'est peur de métier, on ne demande rien de majeur.
+[483.90s -> 490.40s]  Alors après, oui, si on veut pousser plus loin sur la réflexion des conditions de succès ou des problématiques qu'ils ont, voilà.
+[490.40s -> 499.40s]  Et donc ça, du coup, j'ai pu enlever le sujet en disant, et David a été très fort aussi en disant, parce que j'ai insisté que, au contraire, je trouvais que la méthodologie,
+[499.40s -> 506.52s]  vous aviez bien entendu ce que nous, on souhaitait, comme on voulait que ce soit souhaité, mais que votre méthode de travail tout court et votre expertise faisait que ça se passait très bien.
+[506.52s -> 514.52s]  Et de manière très satisfaisante, et donc du coup, à la fin, je lui ai dit, dis-leur juste, laissez-vous guider aussi, enfin, et par contre, venez préparer.
+[514.52s -> 516.52s]  Voilà.
+[516.52s -> 520.52s]  Et on avait dit qu'on envoyait quelque chose dorénavant, quand même, aux entretiens aussi.
+[520.52s -> 524.52s]  Oui, voilà, c'est bizarre, mais c'est comme ça.
+[524.52s -> 534.52s]  Mais du coup, ça je veux bien le prendre, voilà, qu'il manquait peut-être un questionnement, par contre, le travail de préparation, il devait être fait quand même, voilà.
+[534.52s -> 535.52s]  Euh...
+[535.52s -> 536.52s]  Euh...
+[536.52s -> 542.52s]  Sinon, on a échangé avec David, là, sur les comptes rendus, euh...
+[542.52s -> 548.52s]  IT-Cyber, il n'en était pas satisfait du tout, et c'est pour ça qu'il souhaite être présent à l'atelier 2.
+[548.52s -> 552.52s]  Je vais pousser aussi ma petite slide, là, de piste.
+[552.52s -> 557.52s]  Et du coup, il va nous donner ses... ça va un peu chambouler l'atelier 2, pardon.
+[557.52s -> 563.52s]  Il n'avait pas souhaité procéder comme ça au démarrage, mais comme ça, il dit, on ne perd pas de temps, on recale bien ce qu'il y a à recaler.
+[563.52s -> 565.52s]  Et donc, l'atelier 2 se fera en la seule présence d'Eric.
+[565.52s -> 567.52s]  Et Catherine et moi-même.
+[567.52s -> 568.52s]  Euh...
+[568.52s -> 572.52s]  Et David va fixer ses grands enjeux, et c'est les macro-objectifs qu'il voit.
+[572.52s -> 577.52s]  Quels sont les points de David d'insatisfaction ?
+[577.52s -> 582.52s]  Est-ce que c'est sur le contenu des objectifs qui ont été avancés par l'équipe ?
+[582.52s -> 585.52s]  Ou est-ce que c'est sur la méthode de questionnement ?
+[585.52s -> 586.52s]  Ou...
+[586.52s -> 588.52s]  Enfin, c'est une question que je vous pose.
+[588.52s -> 592.52s]  Non, c'est sur le teneur ou le niveau de détail, mais qui...
+[592.52s -> 594.52s]  Enfin, je ne devrais peut-être pas dire comme ça.
+[594.52s -> 595.52s]  En plus, on est enregistrés.
+[595.52s -> 601.52s]  Ou alors, vous mettez pause sur l'enregistrement de 2 minutes, sinon on va se parler, franchement.
+[601.52s -> 602.52s]  Euh...
+[602.52s -> 603.52s]  Mais bon.
+[603.52s -> 605.52s]  Du coup, on ne peut pas mettre pause à l'enregistrement ?
+[605.52s -> 606.52s]  Ouais.
+[606.52s -> 607.52s]  Je l'ai mis en pause.
+[607.52s -> 608.52s]  Je l'ai arrêté.
+[608.52s -> 609.52s]  C'est nous qui avons le trotsquet qui sera pas chaud.
+[609.52s -> 610.52s]  Vous me faites confiance, mais bon, quand même.
+[610.52s -> 611.52s]  C'est mon chef.
+[611.52s -> 612.52s]  Et j'ai besoin de manger quand même.
+[612.52s -> 613.52s]  Non, ça va au commun, ça.
+[613.52s -> 614.52s]  Ça va de fond.
+[614.52s -> 615.52s]  Euh...
+[615.52s -> 616.52s]  Normalement, c'est arrêté, là, je pense.
+[616.52s -> 617.52s]  Normalement, c'est arrêté.
+[617.52s -> 618.52s]  D'accord.
+[618.52s -> 619.52s]  C'est bon, c'est bon.
+[619.52s -> 620.52s]  C'est bon, c'est bon.
+[620.52s -> 621.52s]  Bref.
+[621.52s -> 622.52s]  C'était pas assez hauteur de vue et assez stratégique.
+[622.52s -> 623.52s]  C'est fort intéressant.
+[623.52s -> 624.52s]  Mais c'est plus un niveau d'un état des lieux, d'un constat, d'un travail plus long,
+[624.52s -> 625.52s]  peut-être, dont on aura besoin à nouveau.
+[625.52s -> 626.52s]  Ou bien qu'on en ait déjà eu 2 l'année dernière, de vôtres et par bearing, dans
+[626.52s -> 627.52s]  le cas du modèle économique, qui était convergent.
+[627.52s -> 628.52s]  Tout va bien.
+[628.52s -> 629.52s]  Euh...
+[629.52s -> 630.52s]  Mais du coup...
+[630.52s -> 631.52s]  Euh...
+[631.52s -> 632.52s]  Euh...
+[632.52s -> 633.52s]  Euh...
+[633.52s -> 634.52s]  Euh...
+[634.52s -> 635.52s]  Euh...
+[635.52s -> 636.52s]  Euh...
+[636.52s -> 637.52s]  Euh...
+[637.52s -> 638.52s]  Euh...
+[638.52s -> 639.52s]  Euh...
+[639.52s -> 640.52s]  Euh...
+[640.52s -> 641.52s]  Euh...
+[641.52s -> 642.52s]  Euh...
+[642.52s -> 643.52s]  Euh...
+[643.52s -> 644.52s]  Euh...
+[644.52s -> 645.52s]  Euh...
+[645.52s -> 646.52s]  Euh...
+[646.52s -> 647.52s]  Euh...
+[647.52s -> 648.52s]  Euh...
+[648.52s -> 649.52s]  Euh...
+[649.52s -> 650.52s]  Euh...
+[650.52s -> 651.52s]  Euh...
+[651.52s -> 652.52s]  Euh...
+[652.52s -> 653.52s]  Aujourd'hui, c'est très fort.
+[653.52s -> 655.32s]  Il s'attendait à quelque chose de plus hauteur de vue, qui n'est pas lié à vous,
+[655.32s -> 657.64s]  sur votre méthode de questionnement, par ailleurs.
+[657.64s -> 658.64s]  Donc voilà.
+[658.64s -> 659.64s]  Point.
+[659.64s -> 660.64s]  Il ne veut pas qu'on perde de temps.
+[660.64s -> 662.28s]  Il va nous positionner ses trucs.
+[662.28s -> 664.72s]  Il n'a pas le temps ni l'envie de faire du
+[664.72s -> 668.94s]  name drawing – ou du name pointing, on va dire.
+[668.94s -> 669.94s]  Et...
+[669.94s -> 670.94s]  Voilà.
+[670.94s -> 671.94s]  C'était, etc...
+[671.94s -> 674.80s]  Troué, c'était un peu trop...
+[674.80s -> 679.62s]  C'est pas ses mots, mais du coup, je vais le dire comme ça, un peu chien écrasé.
+[679.62s -> 680.26s]  pienrement.
+[680.26s -> 706.96s]  il y avait des choses pertinentes quand même, enfin un maladie comme ça, ça a l'air très violent, mais voilà, bon après j'apprécie la démarche, on s'est mis d'accord tous les deux, comme ça du coup il est pris dans l'atelier 2, l'atelier 3 je lui ai expliqué ce qu'on allait y faire, il a dit bon ok je viens pas, on continue à fonctionner tous les deux parce qu'on a un radeau, mais du coup il l'a dit à tout le monde, comme ça tout le monde apporte encore plus de crédit puisqu'il y en a besoin,
+[706.96s -> 721.98s]  et du coup je fonctionne toujours avec mes systèmes d'alerte s'il y a besoin aussi tout ça, et il voulait en fait garder cette indépendance aussi de votre travail, mais là plutôt qu'on parle dans tous les sens parce qu'il n'y a rien de réellement arrêté tout simplement,
+[722.66s -> 736.02s]  malgré votre talent il a bien vu que vous aviez mis plein de préconisations, il est très intelligent aussi, il a l'habitude de travailler avec vous je pense, ou d'autres, qui fait qu'il a quand même bien vu qu'il y avait aussi des efforts de transformation de votre part,
+[736.02s -> 745.22s]  dans les retours d'entretien on va dire, vous aviez une certaine matière et vous l'aviez bien transformée, c'est pas une critique de votre travail.
+[749.22s -> 753.48s]  Non mais l'idée c'est de savoir qu'est-ce qu'il faut ajuster, donc ok, très très bien.
+[753.48s -> 766.00s]  En fait il va nous filer ses grands enjeux, ses macro-objectifs, ses pragmatiques, il se restera à l'atelier je le souhaite, mais bon s'il ne peut pas tant pis, mais au moins qu'il nous donne cette vision là,
+[766.02s -> 779.22s]  il continuera à la relayer, et puis derrière, s'il est là, on continuera à faire ce qu'on avait prévu sur l'atelier 2, il m'a dit bon écoute, je vais travailler dessus, sur ce que je lui ai filé aussi sur la partie piste,
+[779.22s -> 789.22s]  et comme ça, ça fera à l'objet de 10 minutes, enfin il ne va pas non plus, il m'a dit ne t'inquiète pas, parce qu'il sait que je commence à avoir une petite inquiétude si on multiplie des ateliers ou qu'on en rajoute plein,
+[789.22s -> 795.22s]  et donc du coup il m'a dit ne t'inquiète pas, mais du coup c'est quand même important de fixer l'orientation, de manière claire et précise.
+[796.02s -> 802.02s]  En vrai il n'y a que bien notre directeur qui peut la fixer, et puis voilà quoi.
+[802.02s -> 812.02s]  Mais ce que je lui ai remonté, et après on peut redémarrer l'enregistrement aussi, c'est qu'il est quand même, ce qui n'est pas le cas, mais ça donne cette impression,
+[812.02s -> 817.02s]  mais ce n'est pas forcément le cas, je ne suis pas si tranchée ça, même si j'y étais contrariée la semaine dernière,
+[817.02s -> 826.02s]  il y a un long de décalage entre notre feuille de route, stratégie dont je vous ai envoyé les résultats, et le reste, notre ville,
+[826.02s -> 832.02s]  hauteur de vue, enfin oui ce que je veux dire c'est que ça donnait comme s'il y avait deux mondes parallèles qui vivaient leur vie quoi, voilà.
+[832.02s -> 839.02s]  Et l'objectif ce n'est pas ça, sachant que ce n'est quand même pas forcément le cas, on a quand même affaire à des gens qui sont experts.
+[839.02s -> 843.02s]  Ah voilà, du coup voilà, on peut y retourner, on peut se reconcentrer si vous le souhaitez.
+[843.02s -> 855.02s]  Je comprends, non mais c'est une remarque assez juste, mais peut-être que l'atelier 2 va être l'occasion d'essayer, ou l'atelier 3, enfin l'entretien suivant l'atelier 2,
+[856.02s -> 866.02s]  va peut-être essayer de permettre de recaler la feuille de route plus large NXT avec une vision à 4 ans telle qu'on l'avait dans la feuille de route.
+[866.02s -> 873.02s]  C'est-à-dire que je pense que là, le premier entretien qu'on a eu aussi avec la NXT, avec les métiers, c'était très sur le paysage haïti,
+[873.02s -> 877.02s]  il n'y avait pas encore de projection, ils n'avaient pas l'ambition des métiers.
+[877.02s -> 885.02s]  Non, alors je parlais vraiment plus déjà côté juste nous, cyber haïti, où là on a quand même des enjeux qu'on a connus en fait.
+[885.02s -> 887.02s]  C'est vrai.
+[887.02s -> 891.02s]  Voilà, mais du coup ce n'est pas grave, et c'est au même titre finalement, quand on avait fait la remarque et on ne s'en était pas,
+[891.02s -> 898.02s]  parce que vous avez demandé d'orienter un peu sur l'éco-conception, enfin numérique responsable, on a un axe, j'ai eu cette discussion ce matin encore en interne,
+[898.02s -> 903.02s]  on a un axe stratégique quand même, numérique responsable. Voilà, bon.
+[903.02s -> 906.02s]  Voilà, bon, c'est très bien, let's go.
+[906.02s -> 912.02s]  Une page sur le statut et sur quelques questions, comment dire, sur les éléments à venir.
+[912.02s -> 914.02s]  Alors, sur la page de statut.
+[914.02s -> 915.02s]  Oui.
+[915.02s -> 928.02s]  Sur la page de statut, la page 2, on a d'abord un certain nombre de, comment dire, de choses qui ont été planifiées, qui ont été exécutées en vert.
+[928.02s -> 939.02s]  Donc, sur la première partie 1, il nous reste essentiellement un entretien SLA qu'on a planifié, donc avec Carole, à faire.
+[939.02s -> 942.02s]  En DD, il nous reste l'atelier 1, qui est aussi planifié.
+[942.02s -> 944.02s]  Et les RH pour lesquels on a planifié.
+[944.02s -> 949.02s]  Les RH pour lesquels on vient de planifier les, je pense, les ateliers.
+[949.02s -> 950.02s]  Oui.
+[950.02s -> 955.02s]  Par contre, l'aéroportuaire reste un point, un point pour le coup encore en suspens.
+[955.02s -> 966.02s]  Alors, l'aéroportuaire, j'ai un point ce soir en interne, ça a été décalé ce d'hier soir en interne avec Nicolas Vandave et Stéphane Glock.
+[966.02s -> 972.02s]  Nicolas Vandave étant le nouveau DG XI, ancien DG OE.
+[972.02s -> 975.02s]  Donc, ça, j'ai un point en termes de calage.
+[975.02s -> 982.02s]  Mais par contre, avec David, on a un point avec Régis Lacote et Laurence Faure, début de semaine pro.
+[982.02s -> 984.02s]  Et c'est là où après, on pourra dérouler.
+[984.02s -> 988.02s]  Vous avez vu l'efficacité de Sandrine en termes de réactivité.
+[988.02s -> 993.02s]  Hier soir, elle était encore en train de travailler sur tout ça à 20h30.
+[993.02s -> 998.02s]  Elle est quand même très investie par ailleurs.
+[998.02s -> 999.02s]  Voilà.
+[999.02s -> 1000.02s]  Donc, du coup, je n'ai pas de doute.
+[1000.02s -> 1004.02s]  J'ai l'inquiétude pour porter peut-être plus finalement ce qu'on va ressortir.
+[1004.02s -> 1016.02s]  En vrai, je pense que l'aéro, il y a un sujet qui est que malgré tout, il va falloir qu'il y ait une réflexion profonde sur leur transformation qui devrait prendre certainement plus de temps que sur l'exercice que l'on fait.
+[1016.02s -> 1026.02s]  Donc, ce qui peut être intéressant, c'est de faire émerger des pistes ou en tout cas ce fort besoin d'évolution, on va dire, parce qu'il y a déjà une multitude de métiers.
+[1026.02s -> 1029.02s]  Donc, en fait, là, l'objectif, c'est de faire trancher par Régis.
+[1029.02s -> 1031.02s]  Finalement, est-ce qu'on aborde des ateliers ?
+[1031.02s -> 1039.02s]  Vous savez, on se l'était dit, un minimal atelier 1 par sous-domaine pour qu'ils aient au moins tous une tribune égale.
+[1039.02s -> 1046.02s]  Parce que c'est vrai que sinon, à 1h30, j'ai un peu peur que ce soit très dense et qu'il y en ait qui ne puissent pas s'exprimer.
+[1046.02s -> 1047.02s]  Enfin, je n'en sais rien.
+[1047.02s -> 1056.02s]  Et qu'après, par contre, malheureusement, l'atelier 2, en raison du temps aussi, par rapport au planning, ou alors peut-être qu'il y aura besoin d'un autre atelier.
+[1056.02s -> 1057.02s]  Du coup…
+[1057.02s -> 1058.02s]  Oui.
+[1058.02s -> 1059.02s]  Oui.
+[1059.02s -> 1065.02s]  En macro, en tous les cas, on peut converger peut-être en macro, parce que vous avez cette expertise de faire ressortir des choses.
+[1065.02s -> 1066.02s]  Voilà.
+[1066.02s -> 1073.02s]  Mais il y a une conscience collective au niveau du groupe et de la gouvernance qui est qu'il y a besoin d'approfondissement sur certains sujets.
+[1073.02s -> 1087.02s]  Par exemple, typiquement, ils ont déjà lancé ce qu'ils appellent aussi, c'est un mot très utilisé chez ADP, feuille de route PHMR, qui est une sorte d'un audit de toute la filière autour de l'ADP.
+[1087.02s -> 1088.02s]  Oui.
+[1088.02s -> 1089.02s]  Et il y aura des précautions, des choses comme ça.
+[1089.02s -> 1090.02s]  Mais le PHMR fait partie d'un sous-domaine qui s'appelle le process passager, qui est plus ou plus…
+[1090.02s -> 1091.02s]  Voilà.
+[1091.02s -> 1092.02s]  Donc, je pense que dans le discours à tenir aussi, ça sera bien ce sujet où il y aura une deuxième étape ou une étape parallèle d'approfondissement de certains sujets.
+[1092.02s -> 1093.02s]  C'est quelque chose qui, à mon avis, de toute façon, va se faire sur un réel creux.
+[1093.02s -> 1094.02s]  Donc, il y a quelque chose qui va se faire sur le sujet.
+[1094.02s -> 1095.02s]  Oui.
+[1095.02s -> 1096.02s]  Oui.
+[1096.02s -> 1097.02s]  Oui.
+[1097.02s -> 1098.02s]  Oui.
+[1098.02s -> 1099.02s]  Oui.
+[1099.02s -> 1100.02s]  Oui.
+[1100.02s -> 1101.02s]  Oui.
+[1101.02s -> 1102.02s]  Oui.
+[1102.02s -> 1103.02s]  Oui.
+[1103.02s -> 1104.02s]  Oui.
+[1104.02s -> 1105.02s]  Oui.
+[1105.02s -> 1106.02s]  Oui.
+[1106.02s -> 1107.02s]  Oui.
+[1107.02s -> 1108.02s]  Oui.
+[1108.02s -> 1109.02s]  Oui.
+[1109.02s -> 1110.02s]  Oui.
+[1110.02s -> 1111.02s]  Oui.
+[1111.02s -> 1112.02s]  Oui.
+[1112.02s -> 1113.02s]  Oui.
+[1113.02s -> 1114.02s]  Oui.
+[1114.02s -> 1115.02s]  Oui.
+[1118.02s -> 1119.02s]  Non.
+[1119.02s -> 1120.02s]  Oui.
+[1120.02s -> 1121.02s]  Oui.
+[1121.02s -> 1122.02s]  Oui.
+[1122.02s -> 1123.02s]  Mais, quand même…
+[1123.02s -> 1124.02s]  Oui.
+[1125.02s -> 1126.02s]  Oui.
+[1126.02s -> 1127.02s]  Oui.
+[1127.02s -> 1128.02s]  Oui.
+[1128.02s -> 1129.02s]  Oui.
+[1130.02s -> 1131.02s]  Oui.
+[1131.02s -> 1132.02s]  Oui.
+[1132.02s -> 1133.02s]  Oui.
+[1134.02s -> 1135.52s]  Oui.
+[1135.52s -> 1136.52s]  Oui.
+[1136.52s -> 1137.52s]  Oui.
+[1137.52s -> 1138.52s]  Oui.
+[1138.52s -> 1139.52s]  Oui.
+[1140.52s -> 1141.52s]  Oui.
+[1142.02s -> 1143.02s]  Oui.
+[1143.52s -> 1144.02s]  Oui.
+[1144.02s -> 1145.02s]  Oui.
+[1145.52s -> 1147.02s]  Est-ce que ces soucis sont назis ?
+[1147.02s -> 1147.98s]  Est-ce que c'est attirant ?
+[1148.02s -> 1162.18s]  Même si on ne le fait pas, d'aller des cliniques en KPI, même si c'est vraiment du très macro, il faut qu'on arrive à faire émerger une catégorisation, un rangement de tout ce qu'ils vont dire les uns les autres.
+[1162.18s -> 1184.02s]  Et ce que je voyais même en REST-IT, par exemple, ça serait que forcément, il y a des sujets qui vont être identiques, même s'ils ont des spécificités métiers. À nouveau, les sujets data, enfin voilà. Donc ça, forcément, on met en commun à tout le comité aéro, par exemple, et on pourra mettre en exergue un ou deux points parallèles.
+[1184.02s -> 1192.02s]  Voilà comment je le vois pour l'instant. Je pense que comme on se fait nos points réguliers, peut-être qu'à l'issue de un ou deux ateliers, si on considère...
+[1192.18s -> 1206.18s]  Si on considère qu'il y a un stade qui a un petit truc, eh bien, dans ces cas-là, je ferais un point d'avancement avec les plateformes pour leur faire peut-être un besoin de réajustement dans la manière de travailler ou un truc comme ça.
+[1206.18s -> 1220.18s]  J'ai d'ailleurs, lors de ces échanges que je vais avoir, je vais demander, mais je préfère la demander à Régis, l'autorisation de vous envoyer Paris-Orly 2035 et CDG 2050.
+[1220.18s -> 1222.18s]  Là, comme ça touche au plan de masse,
+[1222.18s -> 1228.18s]  je sais qu'en tant que collaboratrice, il faut que je sollicite l'autorisation.
+[1228.18s -> 1234.18s]  Quand bien même, il y a Indy, et quand bien même, vous avez déjà bossé sur des sujets comme ça.
+[1234.18s -> 1241.18s]  La question, c'est qu'est-ce qu'il y a dans ces deux... C'est vraiment les plans de masse CDG 2050 et Orly 2035 ?
+[1241.18s -> 1250.18s]  Oui, alors, en fait, c'est plutôt les projections du plan de masse. Qu'est-ce qu'on y fait ? Qu'est-ce qu'on va avoir comme bâtiment ? Comment on projette le flux passager ? Comment on projette les opérations ? Enfin, bon...
+[1250.18s -> 1261.18s]  C'est une retranscription lisible. Alors, elle est du coloré. Malgré tout, tu vois, ce n'est pas la version très fine.
+[1261.18s -> 1265.18s]  Il n'y a pas de plan. Enfin, si, on voit des plans, mais ce n'est pas... Voilà.
+[1265.18s -> 1269.18s]  Mais du coup, non, malgré tout, ce plan-là, je pense que je vais le solliciter.
+[1269.18s -> 1270.18s]  D'accord.
+[1270.18s -> 1278.18s]  Le dossier COE de RH, je vais vous l'envoyer parce que finalement, ça reprend l'entièreté de l'enjeu de la RH quasiment sur nos RP.
+[1278.18s -> 1279.18s]  D'accord.
+[1279.18s -> 1287.18s]  Là, Florence, elle a été nommée officiellement. Donc, je vais lui envoyer son kit. Alors, elle ne l'aura pas eu. Je ne me souviens plus de sa date.
+[1287.18s -> 1291.18s]  Comme dit la Sandrine, fais au mieux, mais au plus vite.
+[1293.18s -> 1294.18s]  Attendez.
+[1294.18s -> 1307.18s]  Mais du coup, par contre, elle n'a pas eu la chance de bénéficier du fameux kick-off inter, donc d'une petite phase d'explication. Donc, je vais essayer de l'initier. Je vais lui envoyer son kit de méthodologie.
+[1309.18s -> 1319.18s]  Donc, j'ai lui envoyé le dossier COE parce qu'elle était plutôt avant RH des plateformes. Donc, elle est là, bien, la visibilité globale. Il s'avère que tant mieux pour nous.
+[1319.18s -> 1328.18s]  Je vous avais dit, ça va nous faire gagner du temps quand même. C'est que finalement, les enjeux IT sont intrinsèquement liés aux enjeux RH.
+[1328.18s -> 1337.18s]  Bien qu'il y ait des prévoquis, on peut parler des process avant. Enfin, voilà. Mais malgré tout, ils sont vraiment liés. Donc, non seulement parce qu'il y avait des enjeux aussi d'obsolescence majeure.
+[1337.18s -> 1348.18s]  Donc, il y avait une urgence. Voilà, voilà. Disons que c'est des choses qui sont enclenchées pour eux, qui sont structurantes, très chères.
+[1348.18s -> 1355.18s]  Donc, de toute façon, je ne vois pas, à part quelques petits outils complémentaires, qu'est-ce qui pourrait être ajouté à ça.
+[1355.18s -> 1366.18s]  Et ça devrait nous entraîner jusqu'à à peu près 2029. Donc, on n'est pas trop loin du compte puisqu'on parle bien de deux projets majeurs et d'envergure.
+[1366.18s -> 1371.18s]  Donc, là, on est quand même sur de l'ordre de l'enjeu. C'est pas ouverte.
+[1371.18s -> 1380.18s]  C'est pas vrai que ce soit tellement structurant que ça focalise quand même l'ensemble des efforts sur ce sujet.
+[1380.18s -> 1385.18s]  Voilà. Donc, du coup, j'ai décidé que ça, je ne demandais pas l'autorisation. On a une NDA.
+[1385.18s -> 1390.18s]  Et que du coup, c'est surtout que ça vous permettrait de travailler même au mieux les premiers entretiens.
+[1390.18s -> 1394.18s]  Comme ça, ça ciblera d'autant plus si jamais on pense qu'il faut qu'on accélère.
+[1394.18s -> 1399.18s]  Parce qu'on va se retrouver peut-être un peu noyé avec l'aéro. J'en sais rien. J'anticipe.
+[1399.18s -> 1403.18s]  D'accord. D'accord, d'accord. Non, non, mais c'est très clair.
+[1403.18s -> 1408.18s]  Alors, n'hésitez pas à dire quand il y a des choses qui ne vont pas. Par exemple, je vous le redis, mais c'est important.
+[1408.18s -> 1416.18s]  On a quelques points d'attention sur le calendrier. Sur la droite, on va vous les partager, Catherine et Valérie.
+[1416.18s -> 1422.18s]  Donc, juste pour nos next steps, là, c'est... Et on prendra dans... Avant 15, avant 15.
+[1422.18s -> 1431.18s]  Avant 15 heures, 5 minutes pour vous passer ce qu'on a préparé pour le prairie de l'atelier numérique 2.
+[1431.18s -> 1437.18s]  Sachant que chaque... En fait, chaque atelier 2 aura un prairie un peu particulier.
+[1437.18s -> 1445.18s]  Parce que le poids, comment dire... Comment dire ? Comment expliquer ça ?
+[1445.18s -> 1450.18s]  Il faut qu'on donne une restitution de l'atelier 1 pour que l'atelier 2 soit vraiment fonctionnel.
+[1450.18s -> 1456.18s]  Et donc, ce n'est pas un prairie, comment dire, purement, comment dire, standard qu'on va envoyer.
+[1456.18s -> 1461.18s]  Il va falloir qu'il soit préparé spécifiquement pour chacun des ateliers. D'accord ?
+[1461.18s -> 1471.18s]  Et ce qui... La grande différence, ça va être que sur certains ateliers, on a... Sur certains ateliers 1, on a quand même évoqué de manière un peu plus approfondie
+[1471.18s -> 1478.18s]  les conditions de succès, voire éventuellement même les risques à ne pas faire, tandis que sur d'autres, on ne l'a pas du tout fait.
+[1478.18s -> 1480.18s]  Et donc, on va... En fonction de ça, on va...
+[1480.18s -> 1491.18s]  On va essayer de bien localiser le prairie pour qu'on aille assez vite aussi dans l'atelier 2 dans les deux cas pour bien faire balayer l'ensemble, nous, de nos objectifs
+[1491.18s -> 1499.18s]  qui est d'à la fin de cet atelier 2 sortir quand même avec une première vision des chantiers, des besoins IT, des besoins fonctionnels. D'accord ?
+[1501.18s -> 1508.18s]  Et donc, on est en train de préparer ça et on va vous partager l'atelier numérique, le prairie d'ici la fin de notre session.
+[1508.18s -> 1511.18s]  Quelques questions sur nos prochaines étapes.
+[1511.18s -> 1517.18s]  Alors, nous avons un copil qui est prévu le 12 sur l'aspect NXT.
+[1517.18s -> 1519.18s]  Avec David ?
+[1519.18s -> 1520.18s]  Avec David.
+[1520.18s -> 1521.18s]  Ok.
+[1521.18s -> 1534.18s]  Quelles sont les attendues de ce copil d'après... pour vous, alors qu'on aura fait l'atelier juste avant et qu'on a un point aussi avec David le 17 ?
+[1534.18s -> 1537.18s]  Le 17, c'est plutôt pour un point d'étape métier.
+[1537.18s -> 1547.18s]  Il ne veut pas s'immiscer dans les métiers, mais il veut voir un peu comment ça avance et notamment s'il émerge bien des sujets de transformation ou...
+[1547.18s -> 1552.18s]  Déjà, être sûr qu'on sera bien sur les attendues pour nos livrables.
+[1552.18s -> 1553.18s]  Tour de contrôle.
+[1553.18s -> 1558.18s]  C'est ça, un peu tour de contrôle avec votre regard d'étonnement.
+[1558.18s -> 1566.18s]  Qu'est-ce qui est mis en exerce selon vous de manière assez forte, mais plutôt sous des angles excellence opérationnelle, la productivité interne, des choses comme ça.
+[1566.18s -> 1576.18s]  Ou finalement, et si selon vous, parce que vous avez quand même une connaissance et une expertise métier, s'il en crée des choses.
+[1576.18s -> 1578.18s]  Des petits points, voilà.
+[1578.18s -> 1584.18s]  Après, sur NXT, bien évidemment, là, il est bien au fait.
+[1584.18s -> 1587.18s]  Je pense qu'il voulait voir le point d'avancement.
+[1587.18s -> 1593.18s]  Je pense qu'il va vous demander votre avis, en fait, potentiellement sur...
+[1593.18s -> 1594.18s]  On se rattends.
+[1594.18s -> 1595.18s]  Par rapport avec David.
+[1595.18s -> 1596.18s]  C'est quoi ?
+[1596.18s -> 1597.18s]  Sur NXT, le 12.
+[1597.18s -> 1598.18s]  Le 12.
+[1598.18s -> 1601.18s]  Et le 12, donc on a le 11 février.
+[1601.18s -> 1603.18s]  Pardon, j'ai besoin de me mettre le calendrier, parce que...
+[1603.18s -> 1608.18s]  On l'a juste après, je pense, dans les planches.
+[1608.18s -> 1610.18s]  Oui, c'est ça, donc.
+[1610.18s -> 1619.18s]  Oui, du coup, comme je l'ai fait par tri, donc je regarde son visite du comité IT, donc l'atelier 2.
+[1619.18s -> 1620.18s]  L'AS6.
+[1620.18s -> 1623.18s]  L'AS6.
+[1623.18s -> 1625.18s]  Et ensuite...
+[1625.18s -> 1626.18s]  Le copil.
+[1626.18s -> 1628.18s]  Ah, il faut qu'elle repositionne l'atelier 3, c'est vrai.
+[1628.18s -> 1629.18s]  L'AS6, le 10, ça peut ressembler.
+[1629.18s -> 1630.18s]  Hop.
+[1630.18s -> 1631.18s]  On l'a, et le copil, on l'a, le 12.
+[1631.18s -> 1632.18s]  Exact.
+[1632.18s -> 1633.18s]  Et c'était sans compter qu'effectivement, c'était le 6, mais du coup, c'était sans
+[1633.18s -> 1634.18s]  compter qu'on a décalé l'atelier 2 entre-temps.
+[1634.18s -> 1635.18s]  Pour avoir David présent.
+[1635.18s -> 1636.18s]  Ok.
+[1636.18s -> 1637.18s]  Euh...
+[1637.18s -> 1638.18s]  Euh...
+[1638.18s -> 1639.18s]  Euh...
+[1639.18s -> 1640.18s]  Euh...
+[1640.18s -> 1641.18s]  Euh...
+[1641.18s -> 1642.18s]  Euh...
+[1642.18s -> 1643.18s]  Euh...
+[1643.18s -> 1644.18s]  Euh...
+[1644.18s -> 1645.18s]  Euh...
+[1645.18s -> 1646.18s]  Euh...
+[1646.18s -> 1647.18s]  Euh...
+[1647.18s -> 1648.18s]  Euh...
+[1648.18s -> 1649.18s]  Euh...
+[1649.18s -> 1650.18s]  Euh...
+[1650.18s -> 1651.18s]  Euh...
+[1651.18s -> 1652.18s]  Euh...
+[1652.18s -> 1653.18s]  Euh...
+[1653.18s -> 1654.18s]  Euh...
+[1654.18s -> 1655.18s]  Euh...
+[1655.18s -> 1656.18s]  Euh...
+[1656.18s -> 1657.18s]  Euh...
+[1657.18s -> 1658.18s]  Oui, oui.
+[1658.18s -> 1659.18s]  Oui.
+[1659.18s -> 1660.18s]  Je vais...
+[1660.18s -> 1661.18s]  Je vais ...
+[1661.18s -> 1662.18s]  Je vais lui envoyer, euh...
+[1662.18s -> 1663.18s]  Ah, c'est paths faux.
+[1663.18s -> 1664.18s]  Hum hmm hum.
+[1664.18s -> 1665.18s]  Hum hum.
+[1665.18s -> 1666.18s]  Hum...
+[1666.18s -> 1667.18s]  Oui.
+[1667.18s -> 1668.18s]  Hum hmm.
+[1668.18s -> 1669.18s]  Hum...
+[1669.18s -> 1670.18s]  OK.
+[1670.18s -> 1671.18s]  Allez.
+[1671.18s -> 1672.18s]  Allez-y.
+[1672.18s -> 1673.18s]  Oui, oui.
+[1673.18s -> 1674.18s]  Voilà, c'est...
+[1674.18s -> 1675.18s]  Mais non, Raisa au fil des frontières.
+[1675.18s -> 1676.18s]  Quand on va naître.
+[1676.18s -> 1677.18s]  Je vais...
+[1677.18s -> 1678.18s]  C'est mon tapisserie devant moi.
+[1678.18s -> 1679.18s]  J'aurais tout, j'aurais tout fils pour l'é publier.
+[1679.18s -> 1680.18s]  Tu sais, tu sais j'ai vraimentfound...
+[1680.18s -> 1681.18s]  OK.
+[1681.18s -> 1682.18s]  Vous bien。
+[1682.18s -> 1691.48s]  On aura déjà fait le copy dans sa présence, du coup je pense qu'il sera peut-être plus intéressant
+[1691.48s -> 1698.44s]  pour David lors du point du 17 février de dire peut-être les écarts par rapport à ce que nous
+[1698.44s -> 1704.06s]  on a ciblé dans nos enjeux par rapport à ce que vous avez vu avec les métiers. Là c'est plutôt
+[1704.06s -> 1709.48s]  une remontée d'écarts parce que c'est quelque chose qu'on va devoir aussi intégrer dans notre
+[1709.48s -> 1715.54s]  vision et là on sera peut-être plus mûr à ce moment-là pour lui donner une vision d'écarts
+[1715.54s -> 1722.56s]  le 17 février, en tout cas des premiers éléments. En tout cas des premiers éléments et des propos
+[1722.56s -> 1733.84s]  sur les ateliers qu'on aura fait, les ateliers 2 qu'on aura fait. Oui, tout comme finalement le copy le soit mais
+[1733.84s -> 1738.34s]  ce qui m'inquiétait c'est même malgré votre talent qu'il y ait quand même très peu de recul entre tous
+[1738.34s -> 1739.22s]  les ateliers.
+[1740.34s -> 1745.60s]  qui du coup faisait que vous n'auriez peut-être pas la capacité de vous poser en
+[1745.60s -> 1752.74s]  profondeur parce qu'en fait ce qu'on attend de votre expertise, c'est pas que des ateliers c'est
+[1752.74s -> 1757.00s]  aussi que finalement vous puis serez aussi nous mettre du doigt sur soit des contradictions,
+[1757.00s -> 1764.62s]  des points à profondir ou même nous orienter gentiment en disant selon que c'est peut-être
+[1764.62s -> 1768.34s]  pas très prioritaire. Enfin si ça peut être un point d'action, mais est-ce que ça doit
+[1768.34s -> 1769.20s]  être visible ?
+[1769.48s -> 1778.48s]  niveau-là et qu'on se prenne la tête, à savoir comment on le priorise, comment on le décline, voilà, enfin je vous donne des idées, enfin des caricatures.
+[1778.48s -> 1786.48s]  Oui, je sais que ça c'est une question qui va vous poser finalement par rapport à l'avancement des autres directions, est-ce qu'il y a des choses que nous on n'a pas intégrées, ça c'est sûr.
+[1786.48s -> 1798.48s]  Ok, c'est un bon angle. Il y a deux sujets donc, si je récapitule, il y a est-ce que les bons éléments sont sortis des métiers, est-ce qu'on a des bons niveaux d'enjeux, d'objectifs,
+[1798.48s -> 1813.48s]  et de partager quelques-uns, enfin une forme de synthèse là-dessus, et le deuxième c'est est-ce qu'il y a des écarts qui ont émergé suite aux ateliers entre ce qui est attendu des métiers et ce que la NXT a pour le moment dans son portefeuille.
+[1813.48s -> 1816.48s]  Ouais, et du coup je me demande,
+[1816.48s -> 1828.48s]  je me dis qu'en fait potentiellement on a un petit souci là, c'est trop marrant, vu le contexte, c'est un peu trop resserré là sur le niveau IT cyber, parce que quand même, en toute logique,
+[1828.48s -> 1836.48s]  il faudrait que vous puissiez envoyer des planches pour le copie de Restit.

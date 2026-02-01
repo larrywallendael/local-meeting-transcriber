@@ -17,6 +17,7 @@ export interface Job {
   errorMessage?: string;
   progress?: number;
   estimatedTimeRemaining?: number;
+  audioDurationSeconds?: number;
   options?: JobOptions;
 }
 
@@ -50,7 +51,10 @@ export const IPC_CHANNELS = {
   DELETE_JOB: 'delete-job',
   OPEN_TRANSCRIPT: 'open-transcript',
   OPEN_TRANSCRIPT_FOLDER: 'open-transcript-folder',
+  OPEN_AUDIO: 'open-audio',
   GET_MODELS: 'get-models',
+  GET_SETTINGS: 'get-settings',
+  SET_SETTINGS: 'set-settings',
   JOB_PROGRESS: 'job-progress',
   JOB_STATUS_UPDATE: 'job-status-update',
 } as const;

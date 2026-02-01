@@ -97,7 +97,11 @@ export function setupIpcHandlers(
   // Open transcript file
   ipcMain.handle(IPC_CHANNELS.OPEN_TRANSCRIPT, async (_event, jobId: string): Promise<IPCResponse> => {
     try {
-      const transcriptPath = fileManager.getTranscriptPath(jobId);
+      const job = await jobQueue.getJob(jobId);
+      if (!job) {
+        return { success: false, error: 'Job not found' };
+      }
+      const transcriptPath = job.transcriptPath;
       await shell.openPath(transcriptPath);
       return { success: true };
     } catch (error) {
@@ -111,14 +115,34 @@ export function setupIpcHandlers(
   // Open transcript folder
   ipcMain.handle(IPC_CHANNELS.OPEN_TRANSCRIPT_FOLDER, async (_event, jobId: string): Promise<IPCResponse> => {
     try {
-      const transcriptPath = fileManager.getTranscriptPath(jobId);
-      const folderPath = path.dirname(transcriptPath);
+      const job = await jobQueue.getJob(jobId);
+      if (!job) {
+        return { success: false, error: 'Job not found' };
+      }
+      const folderPath = path.dirname(job.transcriptPath);
       await shell.openPath(folderPath);
       return { success: true };
     } catch (error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Failed to open folder',
+      };
+    }
+  });
+
+  // Open stored audio file
+  ipcMain.handle(IPC_CHANNELS.OPEN_AUDIO, async (_event, jobId: string): Promise<IPCResponse> => {
+    try {
+      const job = await jobQueue.getJob(jobId);
+      if (!job) {
+        return { success: false, error: 'Job not found' };
+      }
+      await shell.openPath(job.localAudioPath);
+      return { success: true };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to open audio file',
       };
     }
   });
@@ -139,6 +163,32 @@ export function setupIpcHandlers(
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Failed to list models',
+      };
+    }
+  });
+
+  // Get persisted settings
+  ipcMain.handle(IPC_CHANNELS.GET_SETTINGS, async (): Promise<IPCResponse> => {
+    try {
+      const settings = await fileManager.readSettings();
+      return { success: true, data: settings };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to load settings',
+      };
+    }
+  });
+
+  // Persist settings
+  ipcMain.handle(IPC_CHANNELS.SET_SETTINGS, async (_event, settings: any): Promise<IPCResponse> => {
+    try {
+      await fileManager.writeSettings(settings);
+      return { success: true };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to save settings',
       };
     }
   });

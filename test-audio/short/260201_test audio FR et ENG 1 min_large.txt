@@ -1,0 +1,9 @@
+[0.00s -> 5.04s]  Ceci est un audio de test, j'aimerais bien qu'il dure un peu plus longtemps,
+[5.04s -> 12.24s]  idéalement j'aimerais qu'il dure 10 minutes et doit y avoir différentes voix. J'ai envie qu'il
+[12.24s -> 20.40s]  y ait des timestamps, j'ai envie qu'il y ait un peu de l'anglais, car là c'est un peak moment in
+[20.40s -> 31.44s]  life, les jours sont assez longs, mais nous sommes sur la crème, et en fait là je retourne en français
+[31.44s -> 39.82s]  et j'aimerais bien voir que ça marche, tout cela j'aimerais que ça dure une minute pour voir si
+[39.82s -> 50.14s]  Whisper peut en fait capturer tout cela et générer une transcription, et j'aimerais bien
+[50.14s -> 50.38s]  ne pas le faire, mais j'aimerais bien le faire, mais j'aimerais bien que ça dure une minute pour
+[50.38s -> 55.72s]  être ambigu, je suis afflagé au marché. Peut-être que je peux être un peu plus loin du micro à ce
+[55.72s -> 61.54s]  moment-ci pour voir si ça marche encore. Et selon moi, ça va durer une minute.

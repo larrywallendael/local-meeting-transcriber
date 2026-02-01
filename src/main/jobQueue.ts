@@ -21,6 +21,11 @@ export class JobQueue extends EventEmitter {
       this.emit('job-progress', data);
     });
 
+    this.jobRunner.on('duration', async (data: { jobId: string; duration: number }) => {
+      await this.jobStore.updateJob(data.jobId, { audioDurationSeconds: data.duration });
+      this.emit('job-status-update', { jobId: data.jobId, type: 'duration' });
+    });
+
     this.jobRunner.on('complete', async (jobId: string) => {
       await this.onJobComplete(jobId);
     });
@@ -38,8 +43,8 @@ export class JobQueue extends EventEmitter {
 
   async addJob(originalAudioPath: string, options?: JobOptions): Promise<Job> {
     const jobId = this.fileManager.generateJobId();
-    const localAudioPath = await this.fileManager.copyAudioFile(originalAudioPath, jobId);
-    const transcriptPath = this.fileManager.getTranscriptPath(jobId);
+    const { localAudioPath, transcriptPath } = await this.fileManager.createJobFilePaths(originalAudioPath, jobId);
+    await this.fileManager.copyAudioFile(originalAudioPath, localAudioPath);
 
     const job: Job = {
       id: jobId,
@@ -105,6 +110,10 @@ export class JobQueue extends EventEmitter {
 
   async getHistory(): Promise<Job[]> {
     return await this.jobStore.getHistoryJobs();
+  }
+
+  async getJob(jobId: string): Promise<Job | undefined> {
+    return await this.jobStore.getJob(jobId);
   }
 
   private async processNext(): Promise<void> {

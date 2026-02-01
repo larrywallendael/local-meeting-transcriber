@@ -29,3 +29,8 @@ Place the Whisper model file here:
 Download from: https://huggingface.co/ggerganov/whisper.cpp
 
 Note: The model file is large (~1.4GB). It should be added to `.gitignore` and downloaded separately.
+
+## vad/
+
+Optional. If you want to enable VAD, place a VAD model file in this folder.
+- Any single file name is accepted; the app will use the first file it finds.
