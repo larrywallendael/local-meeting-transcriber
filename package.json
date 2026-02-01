@@ -55,7 +55,7 @@
   },
   "build": {
     "appId": "com.localmeetingtranscriber.app",
-    "productName": "Local Meeting Transcriber",
+    "productName": "LocalScribe",
     "directories": {
       "output": "dist-electron"
     },

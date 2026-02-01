@@ -25,7 +25,6 @@ export function FolderScreen({ folderName, onOpenTranscript }: FolderScreenProps
           <span className="text-[14px]">Folder</span>
         </div>
         <h1 className="text-[28px] font-semibold">{folderName}</h1>
-        <p className="text-[14px] text-muted-foreground">Add description</p>
       </div>
 
       <section className="space-y-3">
