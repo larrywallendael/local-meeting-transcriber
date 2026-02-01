@@ -2,7 +2,7 @@ import { app } from 'electron';
 import path from 'path';
 
 // Set app name
-const APP_NAME = 'LocalMeetingTranscriber';
+const APP_NAME = 'LocalScribe';
 
 export function getAppDataPath(): string {
   return path.join(app.getPath('appData'), APP_NAME);

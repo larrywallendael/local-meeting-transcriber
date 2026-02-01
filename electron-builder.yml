@@ -4,20 +4,44 @@ directories:
   output: dist-electron
 files:
   - dist/**/*
-  - resources/**/*
+  - assets/**/*
   - package.json
+  - "!**/*.map"
+  - "!**/tests/**"
+  - "!**/test/**"
+  - "!**/scripts/**"
+  - "!**/reports/**"
+  - "!**/test-audio/**"
+  - "!**/.cursor/**"
+  - "!**/release/**"
+  - "!**/resources/**"
+  - "!**/*.md"
 win:
   target:
-    - target: portable
+    - target: nsis
       arch:
         - x64
-  icon: resources/icon.ico
+  icon: assets/icon.png
 extraResources:
   - from: resources/whisper
     to: whisper
     filter:
-      - "**/*"
+      - "whisper.exe"
+      - "*.dll"
   - from: resources/models
     to: models
     filter:
-      - "**/*"
+      - "ggml-medium-q5_0.bin"
+      - "ggml-small-q8_0.bin"
+  - from: resources/ffmpeg
+    to: ffmpeg
+    filter:
+      - "ffmpeg.exe"
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: LocalScribe
+  deleteAppDataOnUninstall: false
+  include: build/nsis-custom.nsh

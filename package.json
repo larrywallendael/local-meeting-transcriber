@@ -12,6 +12,8 @@
     "build:renderer": "vite build",
     "package": "npm run build && electron-builder",
     "package:win": "npm run build && electron-builder --win",
+    "release:validate": "node scripts/validate-release-assets.js",
+    "release:v1": "node scripts/release-v1.js",
     "lint": "eslint . --ext .ts,.tsx",
     "type-check": "tsc --noEmit",
     "smoke-test": "node scripts/smoke-test.js"
@@ -61,14 +63,23 @@
     },
     "files": [
       "dist/**/*",
-      "resources/**/*",
       "assets/**/*",
-      "package.json"
+      "package.json",
+      "!**/*.map",
+      "!**/tests/**",
+      "!**/test/**",
+      "!**/scripts/**",
+      "!**/reports/**",
+      "!**/test-audio/**",
+      "!**/.cursor/**",
+      "!**/release/**",
+      "!**/resources/**",
+      "!**/*.md"
     ],
     "win": {
       "target": [
         {
-          "target": "portable",
+          "target": "nsis",
           "arch": [
             "x64"
           ]
@@ -76,19 +87,37 @@
       ],
       "icon": "assets/icon.png"
     },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "LocalScribe",
+      "deleteAppDataOnUninstall": false,
+      "include": "build/nsis-custom.nsh"
+    },
     "extraResources": [
       {
         "from": "resources/whisper",
         "to": "whisper",
         "filter": [
-          "**/*"
+          "whisper.exe",
+          "*.dll"
         ]
       },
       {
         "from": "resources/models",
         "to": "models",
         "filter": [
-          "**/*"
+          "ggml-medium-q5_0.bin",
+          "ggml-small-q8_0.bin"
+        ]
+      },
+      {
+        "from": "resources/ffmpeg",
+        "to": "ffmpeg",
+        "filter": [
+          "ffmpeg.exe"
         ]
       }
     ]

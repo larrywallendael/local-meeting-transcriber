@@ -1,4 +1,4 @@
-# Local Meeting Transcriber
+# LocalScribe
 
 A local-first Windows desktop application that transcribes meeting recordings entirely on your computer, without any cloud processing.
 
@@ -10,7 +10,7 @@ A local-first Windows desktop application that transcribes meeting recordings en
 - **Progress Tracking**: Real-time progress updates with estimated time remaining
 - **Job History**: View completed, cancelled, and failed jobs
 - **Incremental Output**: Partial transcripts are preserved even if a job is cancelled or crashes
-- **Portable**: Single `.exe` file - no installation required, no admin rights needed
+- **Installer**: Standard Windows installer with clean uninstall
 
 ## Requirements
 
@@ -55,17 +55,23 @@ Download the Whisper medium model in GGUF format and place it in `resources/mode
 npm run dev
 ```
 
-### 6. Build Portable Executable
+### 6. Build Installer (NSIS)
 
 ```bash
 # Build the application
 npm run build
 
-# Package as portable .exe
+# Package as installer .exe
 npm run package:win
 ```
 
-The portable executable will be created in `dist-electron/`.
+The installer executable will be created in `dist-electron/`.
+
+## Release Checklist (Short)
+
+1. Update `CHANGELOG.md` with the new version notes.
+2. Run `npm run release:v1`.
+3. Find the installer in `release/1.0.0/` with a date-stamped filename.
 
 ## Project Structure
 
@@ -85,7 +91,7 @@ local-meeting-transcriber/
 ## Application Data
 
 The application stores data in:
-- `%APPDATA%/LocalMeetingTranscriber/`
+- `%APPDATA%/LocalScribe/`
   - `jobs.json` - Job queue and history
   - `transcripts/` - Output transcript files
   - `audio/` - Copied audio files
@@ -112,7 +118,7 @@ The application stores data in:
 
 ## Manual Test Checklist
 
-Use short test files from `C:\Users\vanwallendael.larry\AppData\Roaming\LocalMeetingTranscriber\audio` (FR/ENG).
+Use short test files from `C:\Users\vanwallendael.larry\AppData\Roaming\LocalScribe\audio` (FR/ENG).
 
 - Settings persistence across restart
 - Model dropdown lists available files

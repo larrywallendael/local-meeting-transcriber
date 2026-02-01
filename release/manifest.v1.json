@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "resourcesRoot": "resources",
+  "required": {
+    "whisperExe": "resources/whisper/whisper.exe",
+    "whisperDllGlob": "resources/whisper/*.dll",
+    "ffmpegExe": "resources/ffmpeg/ffmpeg.exe",
+    "models": [
+      "resources/models/ggml-medium-q5_0.bin",
+      "resources/models/ggml-small-q8_0.bin"
+    ]
+  }
+}

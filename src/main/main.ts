@@ -1,14 +1,107 @@
 import { app, BrowserWindow, Notification, Menu } from 'electron';
 import path from 'path';
+import fs from 'fs/promises';
 import { FileManager } from './fileManager';
 import { JobStore } from './jobStore';
 import { JobQueue } from './jobQueue';
 import { JobRunner } from './jobRunner';
 import { setupIpcHandlers } from './ipcHandlers';
 import { IPC_CHANNELS } from './types';
+import { getFfmpegPath, getResourcesPath, getWhisperPath } from './paths';
 
 let mainWindow: BrowserWindow | null = null;
 let jobQueue: JobQueue | null = null;
+
+const REQUIRED_MODELS = ['ggml-medium-q5_0.bin', 'ggml-small-q8_0.bin'];
+
+async function fileExists(targetPath: string): Promise<boolean> {
+  try {
+    await fs.access(targetPath);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function getMissingBundledAssets(): Promise<string[]> {
+  const missing: string[] = [];
+  const resourcesPath = getResourcesPath();
+
+  const whisperExePath = getWhisperPath();
+  if (!(await fileExists(whisperExePath))) {
+    missing.push('resources/whisper/whisper.exe');
+  }
+
+  const whisperDir = path.join(resourcesPath, 'whisper');
+  try {
+    const entries = await fs.readdir(whisperDir);
+    const dlls = entries.filter((entry) => entry.toLowerCase().endsWith('.dll'));
+    if (dlls.length === 0) {
+      missing.push('resources/whisper/*.dll');
+    }
+  } catch {
+    missing.push('resources/whisper/*.dll');
+  }
+
+  const ffmpegPath = getFfmpegPath();
+  if (!(await fileExists(ffmpegPath))) {
+    missing.push('resources/ffmpeg/ffmpeg.exe');
+  }
+
+  for (const model of REQUIRED_MODELS) {
+    const modelPath = path.join(resourcesPath, 'models', model);
+    if (!(await fileExists(modelPath))) {
+      missing.push(`resources/models/${model}`);
+    }
+  }
+
+  return missing;
+}
+
+function createMissingDepsWindow(missing: string[]) {
+  const details = missing.map((item) => `<li>${item}</li>`).join('');
+  const html = `
+    <html>
+      <head>
+        <meta charset="UTF-8" />
+        <title>LocalScribe - Missing Files</title>
+        <style>
+          body { font-family: "Segoe UI", sans-serif; background: #f4efe6; color: #2c2c2c; margin: 0; }
+          .wrap { max-width: 720px; margin: 48px auto; padding: 0 24px; }
+          h1 { font-size: 22px; margin-bottom: 12px; }
+          p { font-size: 14px; margin: 8px 0; }
+          ul { padding-left: 18px; }
+          li { margin: 6px 0; font-size: 14px; }
+          .card { background: #fff; border: 1px solid #e5ded3; border-radius: 12px; padding: 20px; }
+        </style>
+      </head>
+      <body>
+        <div class="wrap">
+          <div class="card">
+            <h1>LocalScribe could not start</h1>
+            <p>Required runtime files are missing. Please reinstall LocalScribe or contact your provider.</p>
+            <p>Missing files:</p>
+            <ul>${details}</ul>
+          </div>
+        </div>
+      </body>
+    </html>
+  `;
+
+  const errorWindow = new BrowserWindow({
+    width: 900,
+    height: 600,
+    resizable: true,
+    webPreferences: {
+      contextIsolation: true,
+      nodeIntegration: false,
+      sandbox: true,
+    },
+  });
+
+  errorWindow.setMenuBarVisibility(false);
+  errorWindow.loadURL(`data:text/html;charset=UTF-8,${encodeURIComponent(html)}`);
+}
 
 function createWindow() {
   const preloadPath = path.join(__dirname, 'preload.js');
@@ -125,6 +218,12 @@ function createWindow() {
 }
 
 async function initializeApp() {
+  const missingAssets = await getMissingBundledAssets();
+  if (missingAssets.length > 0) {
+    createMissingDepsWindow(missingAssets);
+    return;
+  }
+
   // Initialize file manager
   const fileManager = new FileManager();
   await fileManager.initialize();
