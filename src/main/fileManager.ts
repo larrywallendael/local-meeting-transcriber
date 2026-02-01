@@ -92,6 +92,14 @@ export class FileManager {
     return path.join(this.transcriptsDir, `${jobId}.txt`);
   }
 
+  getTranscriptsDir(): string {
+    return this.transcriptsDir;
+  }
+
+  getAudioDir(): string {
+    return this.audioDir;
+  }
+
   getLogPath(jobId: string): string {
     return path.join(this.logsDir, `${jobId}.log`);
   }

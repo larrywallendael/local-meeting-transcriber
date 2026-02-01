@@ -10,6 +10,8 @@ export function setupIpcHandlers(
   jobQueue: JobQueue,
   fileManager: FileManager
 ): void {
+  const readTranscriptChannel = (IPC_CHANNELS as Record<string, string>).READ_TRANSCRIPT || 'read-transcript';
+
   // Show open dialog for file selection
   ipcMain.handle('show-open-dialog', async (_event, options: any): Promise<any> => {
     try {
@@ -90,6 +92,36 @@ export function setupIpcHandlers(
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Failed to delete job',
+      };
+    }
+  });
+
+  // Read transcript content
+  ipcMain.handle(readTranscriptChannel, async (_event, jobId: string): Promise<IPCResponse> => {
+    try {
+      const job = await jobQueue.getJob(jobId);
+      if (!job) {
+        return { success: false, error: 'Job not found' };
+      }
+      const content = await fileManager.readFile(job.transcriptPath);
+      return { success: true, data: content };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to read transcript',
+      };
+    }
+  });
+
+  // Open external URL (mailto, https, etc.)
+  ipcMain.handle(IPC_CHANNELS.OPEN_EXTERNAL, async (_event, url: string): Promise<IPCResponse> => {
+    try {
+      await shell.openExternal(url);
+      return { success: true };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to open external link',
       };
     }
   });

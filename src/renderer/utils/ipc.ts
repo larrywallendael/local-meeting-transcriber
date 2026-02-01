@@ -34,6 +34,14 @@ export async function deleteJob(jobId: string): Promise<IPCResponse> {
   return await getApi().deleteJob(jobId);
 }
 
+export async function readTranscript(jobId: string): Promise<IPCResponse<string>> {
+  return await getApi().readTranscript(jobId);
+}
+
+export async function openExternal(url: string): Promise<IPCResponse> {
+  return await getApi().openExternal(url);
+}
+
 export async function openTranscript(jobId: string): Promise<IPCResponse> {
   return await getApi().openTranscript(jobId);
 }

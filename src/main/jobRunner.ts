@@ -381,7 +381,7 @@ export class JobRunner extends EventEmitter {
     };
   }
 
-  private async getAudioDuration(audioPath: string): Promise<number> {
+  async getAudioDuration(audioPath: string): Promise<number> {
     const ffmpegPath = getFfmpegPath();
     try {
       await fs.access(ffmpegPath);

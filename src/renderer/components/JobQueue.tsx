@@ -20,19 +20,19 @@ function JobItem({ job }: { job: Job }) {
 
   if (job.status === JobStatus.RUNNING) {
     return (
-      <Card>
+      <Card className="border-transparent bg-muted/40">
         <CardContent className="p-4">
           <div className="flex items-center justify-between gap-4">
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-1">
-                <Play className="h-4 w-4 text-primary" />
-                <p className="font-medium truncate">{fileName}</p>
+                <Play className="h-4 w-4 text-muted-foreground" />
+                <p className="text-[15px] font-medium truncate">{fileName}</p>
               </div>
               {audioLength && (
-                <p className="text-xs text-muted-foreground mb-2">Audio length: {audioLength}</p>
+                <p className="text-[13px] text-muted-foreground mb-2">Audio length: {audioLength}</p>
               )}
-              <Progress value={job.progress || 0} className="h-2 mb-2" />
-              <div className="flex items-center justify-between text-sm text-muted-foreground">
+              <Progress value={job.progress || 0} className="h-1.5 mb-2" />
+              <div className="flex items-center justify-between text-[13px] text-muted-foreground">
                 <span>{Math.round(job.progress || 0)}%</span>
                 {job.estimatedTimeRemaining && (
                   <span>ETA: {formatTime(job.estimatedTimeRemaining)}</span>
@@ -43,7 +43,7 @@ function JobItem({ job }: { job: Job }) {
               variant="outline"
               size="icon"
               onClick={() => cancelJob(job.id)}
-              className="shrink-0"
+              className="shrink-0 border-border/70"
             >
               <X className="h-4 w-4" />
             </Button>
@@ -55,15 +55,15 @@ function JobItem({ job }: { job: Job }) {
 
   if (job.status === JobStatus.WAITING) {
     return (
-      <Card>
+      <Card className="border-transparent bg-muted/40">
         <CardContent className="p-4">
           <div className="flex items-center gap-2">
             <Clock className="h-4 w-4 text-muted-foreground" />
-            <p className="font-medium truncate flex-1">{fileName}</p>
-            <span className="text-sm text-muted-foreground">Waiting</span>
+            <p className="text-[15px] font-medium truncate flex-1">{fileName}</p>
+            <span className="text-[13px] text-muted-foreground">Waiting</span>
           </div>
           {audioLength && (
-            <p className="text-xs text-muted-foreground mt-1">Audio length: {audioLength}</p>
+            <p className="text-[13px] text-muted-foreground mt-1">Audio length: {audioLength}</p>
           )}
         </CardContent>
       </Card>
@@ -78,9 +78,9 @@ export function JobQueueDisplay() {
 
   if (queue.length === 0) {
     return (
-      <Card>
+      <Card className="border-transparent bg-muted/40">
         <CardContent className="p-8 text-center text-muted-foreground">
-          <p>No jobs in queue</p>
+          <p className="text-[14px]">No jobs in queue</p>
         </CardContent>
       </Card>
     );

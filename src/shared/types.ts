@@ -49,6 +49,8 @@ export const IPC_CHANNELS = {
   CANCEL_JOB: 'cancel-job',
   GET_HISTORY: 'get-history',
   DELETE_JOB: 'delete-job',
+  READ_TRANSCRIPT: 'read-transcript',
+  OPEN_EXTERNAL: 'open-external',
   OPEN_TRANSCRIPT: 'open-transcript',
   OPEN_TRANSCRIPT_FOLDER: 'open-transcript-folder',
   OPEN_AUDIO: 'open-audio',

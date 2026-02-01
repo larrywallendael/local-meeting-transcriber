@@ -7,6 +7,10 @@ interface JobContextType {
   history: Job[];
   loading: boolean;
   error: string | null;
+  folders: string[];
+  jobFolders: Record<string, string | undefined>;
+  trashedJobs: Record<string, { trashedAt: number; previousFolder?: string }>;
+  addFolder: (folderName: string) => void;
   refreshQueue: () => Promise<void>;
   refreshHistory: () => Promise<void>;
   addJob: (filePath: string, options?: JobOptions) => Promise<void>;
@@ -15,6 +19,11 @@ interface JobContextType {
   openTranscript: (jobId: string) => Promise<void>;
   openTranscriptFolder: (jobId: string) => Promise<void>;
   openAudio: (jobId: string) => Promise<void>;
+  setJobFolder: (jobId: string, folderName: string) => void;
+  removeJobFolder: (jobId: string) => void;
+  moveToTrash: (jobId: string) => void;
+  restoreFromTrash: (jobId: string) => void;
+  deletePermanently: (jobId: string) => Promise<void>;
 }
 
 const JobContext = createContext<JobContextType | undefined>(undefined);
@@ -24,6 +33,32 @@ export function JobProvider({ children }: { children: React.ReactNode }) {
   const [history, setHistory] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [folders, setFolders] = useState<string[]>(['ADP', 'ETL']);
+  const [jobFolders, setJobFolders] = useState<Record<string, string | undefined>>({});
+  const [trashedJobs, setTrashedJobs] = useState<Record<string, { trashedAt: number; previousFolder?: string }>>({});
+
+  const saveAppSettings = useCallback(async (
+    nextFolders?: string[],
+    nextJobFolders?: Record<string, string | undefined>,
+    nextTrashedJobs?: Record<string, { trashedAt: number; previousFolder?: string }>
+  ) => {
+    try {
+      if (!ipc.isAvailable()) {
+        return;
+      }
+      const response = await ipc.getSettings();
+      const existing = response.success && response.data ? response.data : {};
+      const payload = {
+        ...existing,
+        transcriptFolders: nextFolders ?? folders,
+        transcriptJobFolders: nextJobFolders ?? jobFolders,
+        transcriptTrash: nextTrashedJobs ?? trashedJobs,
+      };
+      await ipc.setSettings(payload);
+    } catch (err) {
+      console.error('Failed to persist folder settings:', err);
+    }
+  }, [folders, jobFolders, trashedJobs]);
 
   const refreshQueue = useCallback(async () => {
     try {
@@ -116,10 +151,132 @@ export function JobProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
+  const setJobFolder = useCallback((jobId: string, folderName: string) => {
+    setJobFolders((prev) => {
+      const next = { ...prev, [jobId]: folderName };
+      void saveAppSettings(undefined, next, undefined);
+      return next;
+    });
+  }, [saveAppSettings]);
+
+  const removeJobFolder = useCallback((jobId: string) => {
+    setJobFolders((prev) => {
+      const next = { ...prev };
+      delete next[jobId];
+      void saveAppSettings(undefined, next, undefined);
+      return next;
+    });
+  }, [saveAppSettings]);
+
+  const addFolder = useCallback((folderName: string) => {
+    const trimmed = folderName.trim();
+    if (!trimmed) {
+      return;
+    }
+    setFolders((prev) => {
+      if (prev.includes(trimmed)) {
+        return prev;
+      }
+      const next = [...prev, trimmed];
+      void saveAppSettings(next, undefined, undefined);
+      return next;
+    });
+  }, [saveAppSettings]);
+
+  const moveToTrash = useCallback((jobId: string) => {
+    setTrashedJobs((prev) => {
+      const next = {
+        ...prev,
+        [jobId]: {
+          trashedAt: Date.now(),
+          previousFolder: jobFolders[jobId],
+        },
+      };
+      void saveAppSettings(undefined, undefined, next);
+      return next;
+    });
+  }, [jobFolders, saveAppSettings]);
+
+  const restoreFromTrash = useCallback((jobId: string) => {
+    setTrashedJobs((prev) => {
+      const next = { ...prev };
+      delete next[jobId];
+      void saveAppSettings(undefined, undefined, next);
+      return next;
+    });
+  }, [saveAppSettings]);
+
+  const deletePermanently = useCallback(async (jobId: string) => {
+    await deleteJob(jobId);
+    setTrashedJobs((prev) => {
+      const next = { ...prev };
+      delete next[jobId];
+      void saveAppSettings(undefined, undefined, next);
+      return next;
+    });
+    setJobFolders((prev) => {
+      const next = { ...prev };
+      delete next[jobId];
+      return next;
+    });
+  }, [deleteJob, saveAppSettings]);
+
+  useEffect(() => {
+    const loadFolderSettings = async () => {
+      if (!ipc.isAvailable()) {
+        return;
+      }
+      const response = await ipc.getSettings();
+      if (response.success && response.data) {
+        const savedFolders = Array.isArray(response.data.transcriptFolders)
+          ? response.data.transcriptFolders
+          : undefined;
+        const savedJobFolders = response.data.transcriptJobFolders;
+        const savedTrash = response.data.transcriptTrash;
+        if (savedFolders && savedFolders.length > 0) {
+          setFolders(savedFolders);
+        }
+        if (savedJobFolders && typeof savedJobFolders === 'object') {
+          setJobFolders(savedJobFolders);
+        }
+        if (savedTrash && typeof savedTrash === 'object') {
+          setTrashedJobs(savedTrash);
+        }
+      }
+    };
+    loadFolderSettings();
+  }, []);
+
+  useEffect(() => {
+    const purgeOldTrash = async () => {
+      const now = Date.now();
+      const cutoff = 30 * 24 * 60 * 60 * 1000;
+      const toDelete = Object.entries(trashedJobs)
+        .filter(([, value]) => now - value.trashedAt > cutoff)
+        .map(([jobId]) => jobId);
+      if (toDelete.length === 0) return;
+      for (const jobId of toDelete) {
+        await deletePermanently(jobId);
+      }
+    };
+    purgeOldTrash();
+  }, [trashedJobs, deletePermanently]);
+
   // Initial load
   useEffect(() => {
     const loadData = async () => {
-      if (!ipc.isAvailable()) {
+      const waitForElectronAPI = async () => {
+        for (let attempt = 0; attempt < 12; attempt += 1) {
+          if (ipc.isAvailable()) {
+            return true;
+          }
+          await new Promise((resolve) => setTimeout(resolve, 150));
+        }
+        return false;
+      };
+
+      const available = await waitForElectronAPI();
+      if (!available) {
         setError('Electron preload is not available. Please restart the app.');
         setLoading(false);
         return;
@@ -162,6 +319,10 @@ export function JobProvider({ children }: { children: React.ReactNode }) {
         history,
         loading,
         error,
+        folders,
+        jobFolders,
+        trashedJobs,
+        addFolder,
         refreshQueue,
         refreshHistory,
         addJob,
@@ -170,6 +331,11 @@ export function JobProvider({ children }: { children: React.ReactNode }) {
         openTranscript,
         openTranscriptFolder,
         openAudio,
+        setJobFolder,
+        removeJobFolder,
+        moveToTrash,
+        restoreFromTrash,
+        deletePermanently,
       }}
     >
       {children}

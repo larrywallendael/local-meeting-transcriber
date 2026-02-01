@@ -15,6 +15,8 @@ contextBridge.exposeInMainWorld('electronAPI', {
   deleteJob: (jobId: string) => ipcRenderer.invoke(IPC_CHANNELS.DELETE_JOB, jobId),
   
   // File operations
+  readTranscript: (jobId: string) => ipcRenderer.invoke(IPC_CHANNELS.READ_TRANSCRIPT, jobId),
+  openExternal: (url: string) => ipcRenderer.invoke(IPC_CHANNELS.OPEN_EXTERNAL, url),
   openTranscript: (jobId: string) => ipcRenderer.invoke(IPC_CHANNELS.OPEN_TRANSCRIPT, jobId),
   openTranscriptFolder: (jobId: string) => ipcRenderer.invoke(IPC_CHANNELS.OPEN_TRANSCRIPT_FOLDER, jobId),
   openAudio: (jobId: string) => ipcRenderer.invoke(IPC_CHANNELS.OPEN_AUDIO, jobId),

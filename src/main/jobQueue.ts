@@ -109,7 +109,21 @@ export class JobQueue extends EventEmitter {
   }
 
   async getHistory(): Promise<Job[]> {
-    return await this.jobStore.getHistoryJobs();
+    const history = await this.jobStore.getHistoryJobs();
+    for (const job of history) {
+      if (job.audioDurationSeconds === undefined || job.audioDurationSeconds === null) {
+        try {
+          const duration = await this.jobRunner.getAudioDuration(job.localAudioPath);
+          if (duration > 0) {
+            await this.jobStore.updateJob(job.id, { audioDurationSeconds: duration });
+            job.audioDurationSeconds = duration;
+          }
+        } catch {
+          // Ignore duration errors for legacy jobs
+        }
+      }
+    }
+    return history;
   }
 
   async getJob(jobId: string): Promise<Job | undefined> {

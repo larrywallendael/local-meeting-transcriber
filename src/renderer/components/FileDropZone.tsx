@@ -88,35 +88,34 @@ export function FileDropZone({ options }: { options?: JobOptions }) {
     <Card
       className={cn(
         'border-2 border-dashed transition-colors',
-        isDragging ? 'border-primary bg-primary/5' : 'border-muted-foreground/25'
+        isDragging ? 'bg-[#9DBAE6]/10' : 'bg-card'
       )}
+      style={{ borderColor: '#9DBAE6' }}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
     >
-      <CardContent className="flex flex-col items-center justify-center p-12">
-        <div className="flex flex-col items-center gap-4">
+      <CardContent className="flex flex-col items-center justify-center px-10 py-10">
+        <div className="flex flex-col items-center gap-3">
           {isDragging ? (
-            <Upload className="h-12 w-12 text-primary" />
+            <Upload className="h-10 w-10 text-[#9DBAE6]" />
           ) : (
-            <FileAudio className="h-12 w-12 text-muted-foreground" />
+            <FileAudio className="h-10 w-10 text-muted-foreground" />
           )}
           <div className="text-center">
-            <p className="text-lg font-medium">
-              {isDragging ? 'Drop audio files here' : 'Drag & drop audio files here'}
-            </p>
-            <p className="text-sm text-muted-foreground mt-2">
-              or
+            <p className="text-[17px] font-medium">
+              {isDragging ? 'Drop audio files here' : 'Drag & drop audio files here or'}
             </p>
           </div>
           <Button
             onClick={handleFilePicker}
             disabled={isProcessing}
             variant="outline"
+            className="border-[#9DBAE6] text-foreground hover:bg-[#9DBAE6]/20"
           >
-            {isProcessing ? 'Processing...' : 'Select Files'}
+            {isProcessing ? 'Processing...' : 'Select files'}
           </Button>
-          <p className="text-xs text-muted-foreground mt-2">
+          <p className="text-[13px] text-muted-foreground">
             Supported formats: WAV, MP3, M4A, OGG, FLAC, AAC
           </p>
         </div>

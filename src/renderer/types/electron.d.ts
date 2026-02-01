@@ -9,6 +9,8 @@ export interface ElectronAPI {
   cancelJob: (jobId: string) => Promise<IPCResponse>;
   getHistory: () => Promise<IPCResponse>;
   deleteJob: (jobId: string) => Promise<IPCResponse>;
+  readTranscript: (jobId: string) => Promise<IPCResponse<string>>;
+  openExternal: (url: string) => Promise<IPCResponse>;
   openTranscript: (jobId: string) => Promise<IPCResponse>;
   openTranscriptFolder: (jobId: string) => Promise<IPCResponse>;
   openAudio: (jobId: string) => Promise<IPCResponse>;
