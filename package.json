@@ -1,6 +1,6 @@
 {
   "name": "local-meeting-transcriber",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "Local-first Windows desktop app for transcribing meeting recordings offline",
   "main": "dist/main/main.js",
   "scripts": {
@@ -14,6 +14,7 @@
     "package:win": "npm run build && electron-builder --win",
     "release:validate": "node scripts/validate-release-assets.js",
     "release:v1": "node scripts/release-v1.js",
+    "test:e2e": "playwright test",
     "lint": "eslint . --ext .ts,.tsx",
     "type-check": "tsc --noEmit",
     "smoke-test": "node scripts/smoke-test.js"
@@ -27,6 +28,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@playwright/test": "^1.58.1",
     "@types/node": "^20.10.0",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",

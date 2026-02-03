@@ -17,6 +17,9 @@ export interface ElectronAPI {
   getModels: () => Promise<IPCResponse>;
   getSettings: () => Promise<IPCResponse>;
   setSettings: (settings: any) => Promise<IPCResponse>;
+  windowMinimize: () => Promise<IPCResponse>;
+  windowToggleMaximize: () => Promise<IPCResponse>;
+  windowClose: () => Promise<IPCResponse>;
   onJobProgress: (callback: (data: any) => void) => void;
   onJobStatusUpdate: (callback: (data: any) => void) => void;
   removeAllListeners: (channel: string) => void;

@@ -371,7 +371,7 @@ export class JobRunner extends EventEmitter {
 
   private resolveOptions(options?: JobOptions): JobOptions {
     return {
-      modelName: options?.modelName || 'ggml-medium.bin',
+      modelName: options?.modelName || 'ggml-medium-q5_0.bin',
       language: options?.language || 'auto',
       vad: options?.vad ?? false,
       beamSize: typeof options?.beamSize === 'number' ? options!.beamSize : 5,

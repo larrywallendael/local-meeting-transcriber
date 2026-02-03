@@ -60,6 +60,7 @@
 
 .tooltip {
   position: relative;
+  z-index: 2147483647;
 }
 
 .tooltip::after {
@@ -76,10 +77,49 @@
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
+  z-index: 2147483647;
   transition: opacity 150ms ease, transform 150ms ease;
 }
 
 .tooltip:hover::after {
   opacity: 1;
   transform: translateY(-50%) translateX(4px);
+}
+
+.app-titlebar {
+  -webkit-app-region: drag;
+  background: hsl(var(--background));
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+.window-control {
+  -webkit-app-region: no-drag;
+  height: 26px;
+  width: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  color: hsl(var(--muted-foreground));
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.window-control:hover {
+  background: hsl(var(--muted));
+  color: hsl(var(--foreground));
+}
+
+.window-control-close:hover {
+  background: #d64545;
+  color: #fff;
+}
+
+.close-button {
+  border-radius: 6px;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.close-button:hover {
+  background: #d64545;
+  color: #fff;
 }

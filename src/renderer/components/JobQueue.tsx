@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Clock, Play } from 'lucide-react';
+import { X, Clock, Loader2 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
 import { Progress } from './ui/progress';
@@ -13,10 +13,15 @@ function formatTime(seconds?: number): string {
   return `${mins}:${secs.toString().padStart(2, '0')}`;
 }
 
-function JobItem({ job }: { job: Job }) {
+function JobItem({ job, zeroProgressSince }: { job: Job; zeroProgressSince?: number }) {
   const { cancelJob } = useJobs();
-  const fileName = job.originalAudioPath.split(/[/\\]/).pop() || 'Unknown file';
+  const fileName = job.originalAudioPath
+    ? job.originalAudioPath.split(/[/\\]/).pop() || 'Unknown file'
+    : 'Unknown file';
   const audioLength = job.audioDurationSeconds ? formatTime(job.audioDurationSeconds) : null;
+  const showStuckNotice = zeroProgressSince
+    ? Date.now() - zeroProgressSince >= 7 * 60 * 1000
+    : false;
 
   if (job.status === JobStatus.RUNNING) {
     return (
@@ -25,7 +30,7 @@ function JobItem({ job }: { job: Job }) {
           <div className="flex items-center justify-between gap-4">
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-1">
-                <Play className="h-4 w-4 text-muted-foreground" />
+                <Loader2 className="h-4 w-4 text-muted-foreground animate-spin" />
                 <p className="text-[15px] font-medium truncate">{fileName}</p>
               </div>
               {audioLength && (
@@ -38,6 +43,11 @@ function JobItem({ job }: { job: Job }) {
                   <span>ETA: {formatTime(job.estimatedTimeRemaining)}</span>
                 )}
               </div>
+              {showStuckNotice && (
+                <p className="mt-2 text-[12px] text-muted-foreground">
+                  Still at 0% after a few minutes. If it stays stuck, try again.
+                </p>
+              )}
             </div>
             <Button
               variant="outline"
@@ -75,6 +85,38 @@ function JobItem({ job }: { job: Job }) {
 
 export function JobQueueDisplay() {
   const { queue } = useJobs();
+  const [zeroProgressMap, setZeroProgressMap] = React.useState<Record<string, number>>({});
+  const [, forceTick] = React.useState(0);
+
+  React.useEffect(() => {
+    const id = window.setInterval(() => forceTick((prev) => prev + 1), 30000);
+    return () => window.clearInterval(id);
+  }, []);
+
+  React.useEffect(() => {
+    setZeroProgressMap((prev) => {
+      const next = { ...prev };
+      const runningIds = new Set<string>();
+      queue.forEach((job) => {
+        if (job.status === JobStatus.RUNNING) {
+          runningIds.add(job.id);
+          const progress = job.progress ?? 0;
+          if (progress <= 0 && !next[job.id]) {
+            next[job.id] = Date.now();
+          }
+          if (progress > 0 && next[job.id]) {
+            delete next[job.id];
+          }
+        }
+      });
+      Object.keys(next).forEach((jobId) => {
+        if (!runningIds.has(jobId)) {
+          delete next[jobId];
+        }
+      });
+      return next;
+    });
+  }, [queue]);
 
   if (queue.length === 0) {
     return (
@@ -89,7 +131,7 @@ export function JobQueueDisplay() {
   return (
     <div className="space-y-2">
       {queue.map((job) => (
-        <JobItem key={job.id} job={job} />
+        <JobItem key={job.id} job={job} zeroProgressSince={zeroProgressMap[job.id]} />
       ))}
     </div>
   );

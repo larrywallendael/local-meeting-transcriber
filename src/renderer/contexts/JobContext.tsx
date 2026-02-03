@@ -33,7 +33,7 @@ export function JobProvider({ children }: { children: React.ReactNode }) {
   const [history, setHistory] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [folders, setFolders] = useState<string[]>(['ADP', 'ETL']);
+  const [folders, setFolders] = useState<string[]>([]);
   const [jobFolders, setJobFolders] = useState<Record<string, string | undefined>>({});
   const [trashedJobs, setTrashedJobs] = useState<Record<string, { trashedAt: number; previousFolder?: string }>>({});
 
@@ -294,16 +294,20 @@ export function JobProvider({ children }: { children: React.ReactNode }) {
       return;
     }
     ipc.onJobProgress((data: { jobId: string; progress: number; eta?: number }) => {
-      setQueue(prev => prev.map(job => 
-        job.id === data.jobId 
-          ? { ...job, progress: data.progress, estimatedTimeRemaining: data.eta }
+      if (!data || !data.jobId) {
+        return;
+      }
+      const progressValue = Number.isFinite(data.progress) ? data.progress : 0;
+      setQueue(prev => prev.map(job =>
+        job.id === data.jobId
+          ? { ...job, progress: progressValue, estimatedTimeRemaining: data.eta }
           : job
       ));
     });
 
     ipc.onJobStatusUpdate(() => {
-      refreshQueue();
-      refreshHistory();
+      void refreshQueue();
+      void refreshHistory();
     });
 
     return () => {
@@ -345,7 +349,7 @@ export function JobProvider({ children }: { children: React.ReactNode }) {
             <p className="text-sm">{error}</p>
             <button
               onClick={() => setError(null)}
-              className="text-destructive-foreground hover:opacity-80"
+              className="close-button text-destructive-foreground hover:opacity-80"
             >
               ×
             </button>

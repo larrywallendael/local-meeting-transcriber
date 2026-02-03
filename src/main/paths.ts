@@ -24,9 +24,7 @@ export function getWhisperPath(): string {
 export function getModelPath(): string {
   const resourcesPath = getResourcesPath();
   // Try both .bin and .gguf extensions
-  const binPath = path.join(resourcesPath, 'models', 'ggml-medium.bin');
-  const ggufPath = path.join(resourcesPath, 'models', 'ggml-medium.gguf');
-  // Return .bin first, fallback to .gguf
+  const binPath = path.join(resourcesPath, 'models', 'ggml-medium-q5_0.bin');
   return binPath;
 }
 

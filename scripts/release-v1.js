@@ -1,16 +1,38 @@
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 const { spawnSync } = require('child_process');
 
 const projectRoot = path.resolve(__dirname, '..');
 const packageJson = JSON.parse(fs.readFileSync(path.join(projectRoot, 'package.json'), 'utf8'));
 const version = packageJson.version;
-const expectedVersion = '1.0.0';
+const expectedVersion = '1.0.3';
 
 if (version !== expectedVersion) {
   console.error(`release:v1 expects version ${expectedVersion}, but package.json is ${version}`);
   process.exit(1);
 }
+
+const hashFile = (relativePath) => {
+  const absolutePath = path.join(projectRoot, relativePath);
+  const content = fs.readFileSync(absolutePath);
+  return crypto.createHash('sha256').update(content).digest('hex').slice(0, 12);
+};
+
+const releaseMarkers = [
+  'src/renderer/components/layout/Sidebar.tsx',
+  'src/renderer/contexts/JobContext.tsx',
+  'src/renderer/components/settings/SettingsOverlay.tsx',
+  'src/renderer/App.tsx',
+  'src/main/paths.ts',
+  'src/main/jobRunner.ts',
+];
+
+console.log('Release version:', version);
+console.log('Release markers (sha256 short):');
+releaseMarkers.forEach((file) => {
+  console.log(`- ${file}: ${hashFile(file)}`);
+});
 
 const npmExecPath = process.env.npm_execpath;
 const nodeExecPath = process.execPath;
@@ -43,7 +65,21 @@ const run = (command, args) => {
   }
 };
 
+const cleanOldDistArtifacts = () => {
+  const distDir = path.join(projectRoot, 'dist-electron');
+  if (!fs.existsSync(distDir)) {
+    return;
+  }
+  const entries = fs.readdirSync(distDir);
+  entries.forEach((entry) => {
+    if (entry.toLowerCase().endsWith('.exe') || entry.toLowerCase().endsWith('.blockmap')) {
+      fs.rmSync(path.join(distDir, entry), { force: true });
+    }
+  });
+};
+
 run(process.execPath, [path.join(projectRoot, 'scripts', 'validate-release-assets.js')]);
+cleanOldDistArtifacts();
 runViaNpm(['run', 'build']);
 runViaNpx(['electron-builder', '--win', '--config', 'electron-builder.yml']);
 
@@ -59,7 +95,12 @@ if (exeFiles.length === 0) {
   process.exit(1);
 }
 
-const setupFile = exeFiles.find((file) => /setup/i.test(file)) || exeFiles[0];
+const versionTag = version.toLowerCase();
+const setupFile = exeFiles.find((file) => /setup/i.test(file) && file.toLowerCase().includes(versionTag));
+if (!setupFile) {
+  console.error(`No installer .exe found for version ${version} in dist-electron.`);
+  process.exit(1);
+}
 const outputDir = path.join(projectRoot, 'release', version);
 fs.mkdirSync(outputDir, { recursive: true });
 
@@ -74,8 +115,7 @@ const outputName = `LocalScribe-${version}-${dateStamp}-Setup.exe`;
 const outputPath = path.join(outputDir, outputName);
 
 if (fs.existsSync(outputPath)) {
-  console.error(`Release artifact already exists: ${outputPath}`);
-  process.exit(1);
+  fs.rmSync(outputPath, { force: true });
 }
 
 fs.copyFileSync(path.join(distDir, setupFile), outputPath);

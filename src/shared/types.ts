@@ -59,4 +59,7 @@ export const IPC_CHANNELS = {
   SET_SETTINGS: 'set-settings',
   JOB_PROGRESS: 'job-progress',
   JOB_STATUS_UPDATE: 'job-status-update',
+  WINDOW_MINIMIZE: 'window-minimize',
+  WINDOW_TOGGLE_MAXIMIZE: 'window-toggle-maximize',
+  WINDOW_CLOSE: 'window-close',
 } as const;

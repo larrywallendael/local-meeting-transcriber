@@ -66,6 +66,18 @@ export async function setSettings(settings: any): Promise<IPCResponse> {
   return await getApi().setSettings(settings);
 }
 
+export async function windowMinimize(): Promise<IPCResponse> {
+  return await getApi().windowMinimize();
+}
+
+export async function windowToggleMaximize(): Promise<IPCResponse> {
+  return await getApi().windowToggleMaximize();
+}
+
+export async function windowClose(): Promise<IPCResponse> {
+  return await getApi().windowClose();
+}
+
 export function onJobProgress(callback: (data: any) => void): void {
   getApi().onJobProgress(callback);
 }

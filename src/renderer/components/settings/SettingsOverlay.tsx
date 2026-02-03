@@ -9,14 +9,16 @@ interface SettingsOverlayProps {
   availableModels: string[];
   draftOptions: JobOptions;
   setDraftOptions: React.Dispatch<React.SetStateAction<JobOptions>>;
-  onSave: () => Promise<void>;
-  isSaving: boolean;
 }
 
-const findPreferredSmallModel = (models: string[]) => {
+const findPreferredBalancedModel = (models: string[]) => {
   const lower = models.map((name) => name.toLowerCase());
-  const index = lower.findIndex((name) => name.includes('small') && name.includes('q8'));
+  const index = lower.findIndex((name) => name.includes('medium') && name.includes('q5'));
   if (index >= 0) return models[index];
+  const mediumIndex = lower.findIndex((name) => name.includes('medium'));
+  if (mediumIndex >= 0) return models[mediumIndex];
+  const smallQ8Index = lower.findIndex((name) => name.includes('small') && name.includes('q8'));
+  if (smallQ8Index >= 0) return models[smallQ8Index];
   const smallIndex = lower.findIndex((name) => name.includes('small'));
   return smallIndex >= 0 ? models[smallIndex] : models[0];
 };
@@ -35,14 +37,12 @@ export function SettingsOverlay({
   availableModels,
   draftOptions,
   setDraftOptions,
-  onSave,
-  isSaving,
 }: SettingsOverlayProps) {
   const [advancedOpen, setAdvancedOpen] = React.useState(false);
   const [selectedMode, setSelectedMode] = React.useState<ModeKey | 'custom'>('balanced');
 
   const presets = React.useMemo(() => {
-    const balancedModel = findPreferredSmallModel(availableModels);
+    const balancedModel = findPreferredBalancedModel(availableModels);
     return {
       fast: {
         modelName: balancedModel,
@@ -111,7 +111,7 @@ export function SettingsOverlay({
       onClick={onClose}
     >
       <div
-        className="w-full max-w-2xl rounded-xl border border-border/70 bg-card p-6 shadow-xl"
+        className="w-full max-w-2xl rounded-xl border border-border/70 bg-card p-6 shadow-xl max-h-[82vh] overflow-y-auto"
         onClick={(event) => event.stopPropagation()}
       >
         <div className="flex items-center justify-between">
@@ -120,7 +120,7 @@ export function SettingsOverlay({
             <p className="text-[14px] text-muted-foreground">Adjust transcription quality and speed.</p>
           </div>
           <button
-            className="tooltip rounded-md border border-border/60 bg-background px-2 py-1 text-muted-foreground hover:bg-muted"
+            className="tooltip close-button rounded-md border border-border/60 bg-background px-2 py-1 text-muted-foreground hover:bg-muted"
             data-tooltip="Close"
             onClick={onClose}
             type="button"
@@ -204,15 +204,6 @@ export function SettingsOverlay({
 
                   <div className="grid gap-3 md:grid-cols-2">
                     <div>
-                      <p className="text-[13px] text-muted-foreground mb-1">Language</p>
-                      <input
-                        className="w-full rounded-md border border-border/70 bg-card px-2 py-1 text-[14px]"
-                        value={draftOptions.language || ''}
-                        onChange={(event) => setDraftOptions((prev) => ({ ...prev, language: event.target.value.trim() }))}
-                        placeholder="auto"
-                      />
-                    </div>
-                    <div>
                       <p className="text-[13px] text-muted-foreground mb-1">Threads</p>
                       <input
                         type="number"
@@ -250,38 +241,12 @@ export function SettingsOverlay({
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-4 text-[14px] text-muted-foreground">
-                    <label className="flex items-center gap-2">
-                      <input
-                        type="checkbox"
-                        checked={!!draftOptions.vad}
-                        onChange={(event) => setDraftOptions((prev) => ({ ...prev, vad: event.target.checked }))}
-                      />
-                      Enable VAD
-                    </label>
-                    <label className="flex items-center gap-2">
-                      <input
-                        type="checkbox"
-                        checked={!!draftOptions.noFallback}
-                        onChange={(event) => setDraftOptions((prev) => ({ ...prev, noFallback: event.target.checked }))}
-                      />
-                      No fallback
-                    </label>
+                  <div className="text-[13px] text-muted-foreground">
+                    Language stays on auto. VAD and fallback are managed automatically.
                   </div>
                 </div>
               </div>
             )}
-          </div>
-
-          <div className="flex items-center justify-end gap-3">
-            <button
-              className="rounded-md border border-border/70 bg-background px-4 py-2 text-[14px] text-foreground hover:bg-muted"
-              onClick={onSave}
-              disabled={isSaving}
-              type="button"
-            >
-              {isSaving ? 'Saving...' : 'Save settings'}
-            </button>
           </div>
         </div>
       </div>

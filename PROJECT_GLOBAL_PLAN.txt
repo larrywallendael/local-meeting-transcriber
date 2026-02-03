@@ -13,6 +13,14 @@ CURRENT STATUS
 
 ---
 
+
+NExt steps (01/02):
+
+- Folder creation does not work yet!!
+
+
+
+
 SHORT TERM (NEXT SESSIONS)
 
 Other: 

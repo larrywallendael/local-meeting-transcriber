@@ -1,18 +1,24 @@
 import React from 'react';
 import { Button } from '../ui/button';
-import { Folder, Calendar } from 'lucide-react';
+import { Folder, Calendar, ChevronLeft } from 'lucide-react';
 import { useJobs } from '../../contexts/JobContext';
 import * as ipc from '../../utils/ipc';
 
 interface TranscriptScreenProps {
   jobId: string | null;
+  onBack: () => void;
+  backLabel: string;
+  backTooltip: string;
 }
 
-export function TranscriptScreen({ jobId }: TranscriptScreenProps) {
+export function TranscriptScreen({ jobId, onBack, backLabel, backTooltip }: TranscriptScreenProps) {
   const { history, queue, openTranscript, openAudio, jobFolders } = useJobs();
   const [content, setContent] = React.useState<string>('');
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
+  const [showCopiedToast, setShowCopiedToast] = React.useState(false);
+  const [fileActionToast, setFileActionToast] = React.useState<string | null>(null);
+  const toastTimerRef = React.useRef<number | null>(null);
 
   const job = React.useMemo(() => {
     if (!jobId) return undefined;
@@ -43,7 +49,9 @@ export function TranscriptScreen({ jobId }: TranscriptScreenProps) {
     loadTranscript();
   }, [jobId]);
 
-  const fileName = job?.originalAudioPath.split(/[/\\]/).pop() || 'Transcript';
+  const fileName = job?.originalAudioPath
+    ? job.originalAudioPath.split(/[/\\]/).pop() || 'Transcript'
+    : 'Transcript';
   const durationText = (() => {
     if (job?.audioDurationSeconds === undefined || job.audioDurationSeconds === null || job.audioDurationSeconds < 0) {
       return '';
@@ -69,12 +77,41 @@ export function TranscriptScreen({ jobId }: TranscriptScreenProps) {
   })();
   const folderLabel = job ? jobFolders[job.id] : undefined;
 
+  const clearToastTimer = () => {
+    if (toastTimerRef.current) {
+      window.clearTimeout(toastTimerRef.current);
+      toastTimerRef.current = null;
+    }
+  };
+
   const handleCopy = async () => {
     if (!content) return;
     try {
       await navigator.clipboard.writeText(content);
+      setShowCopiedToast(true);
+      clearToastTimer();
+      toastTimerRef.current = window.setTimeout(() => setShowCopiedToast(false), 2000);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to copy transcript');
+    }
+  };
+
+  const handleOpenFile = async (type: 'txt' | 'audio') => {
+    if (!jobId) return;
+    const label = type === 'txt' ? 'Opening .txt file…' : 'Opening audio file…';
+    setFileActionToast(label);
+    try {
+      if (type === 'txt') {
+        await openTranscript(jobId);
+      } else {
+        await openAudio(jobId);
+      }
+      clearToastTimer();
+      setFileActionToast(type === 'txt' ? 'Opened .txt file.' : 'Opened audio file.');
+      toastTimerRef.current = window.setTimeout(() => setFileActionToast(null), 2000);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to open file');
+      setFileActionToast(null);
     }
   };
 
@@ -88,6 +125,15 @@ export function TranscriptScreen({ jobId }: TranscriptScreenProps) {
 
   return (
     <div className="space-y-6 max-w-4xl">
+      <button
+        className="tooltip inline-flex items-center gap-2 rounded-full border border-border/70 bg-card px-3 py-1 text-[13px] text-muted-foreground hover:bg-muted"
+        data-tooltip={backTooltip}
+        onClick={onBack}
+        type="button"
+      >
+        <ChevronLeft className="h-3.5 w-3.5" />
+        <span>Back to {backLabel}</span>
+      </button>
       <div className="space-y-1">
         <h1 className="text-[24px] font-semibold">{fileName}</h1>
         {durationText && (
@@ -113,10 +159,10 @@ export function TranscriptScreen({ jobId }: TranscriptScreenProps) {
         <Button variant="outline" onClick={handleCopy} className="border-border/70 text-[14px]">
           Copy transcription
         </Button>
-        <Button variant="outline" onClick={() => openTranscript(jobId)} className="border-border/70 text-[14px]">
+        <Button variant="outline" onClick={() => handleOpenFile('txt')} className="border-border/70 text-[14px]">
           Open .txt file
         </Button>
-        <Button variant="outline" onClick={() => openAudio(jobId)} className="border-border/70 text-[14px]">
+        <Button variant="outline" onClick={() => handleOpenFile('audio')} className="border-border/70 text-[14px]">
           Open audio file
         </Button>
       </div>
@@ -130,6 +176,16 @@ export function TranscriptScreen({ jobId }: TranscriptScreenProps) {
           </div>
         )}
       </div>
+      {showCopiedToast && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 rounded-full border border-border/70 bg-card px-4 py-2 text-[14px] text-foreground shadow-md">
+          Transcript copied.
+        </div>
+      )}
+      {fileActionToast && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 rounded-full border border-border/70 bg-card px-4 py-2 text-[14px] text-foreground shadow-md">
+          {fileActionToast}
+        </div>
+      )}
     </div>
   );
 }

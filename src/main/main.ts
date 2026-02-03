@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Notification, Menu } from 'electron';
+import { app, BrowserWindow, Notification, Menu, ipcMain } from 'electron';
 import path from 'path';
 import fs from 'fs/promises';
 import { FileManager } from './fileManager';
@@ -110,6 +110,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
+    frame: false,
     icon: path.join(app.getAppPath(), 'assets', 'icon.png'),
     webPreferences: {
       preload: preloadPath,
@@ -216,6 +217,30 @@ function createWindow() {
     });
   }
 }
+
+ipcMain.handle(IPC_CHANNELS.WINDOW_MINIMIZE, async () => {
+  const window = BrowserWindow.getFocusedWindow() || mainWindow;
+  window?.minimize();
+  return { success: true };
+});
+
+ipcMain.handle(IPC_CHANNELS.WINDOW_TOGGLE_MAXIMIZE, async () => {
+  const window = BrowserWindow.getFocusedWindow() || mainWindow;
+  if (window) {
+    if (window.isMaximized()) {
+      window.unmaximize();
+    } else {
+      window.maximize();
+    }
+  }
+  return { success: true };
+});
+
+ipcMain.handle(IPC_CHANNELS.WINDOW_CLOSE, async () => {
+  const window = BrowserWindow.getFocusedWindow() || mainWindow;
+  window?.close();
+  return { success: true };
+});
 
 async function initializeApp() {
   const missingAssets = await getMissingBundledAssets();

@@ -76,6 +76,10 @@ export function TranscriptsList({ jobs, onOpenTranscript, emptyLabel }: Transcri
   const [folderSearch, setFolderSearch] = React.useState('');
   const [newFolderName, setNewFolderName] = React.useState('');
   const [selectedIds, setSelectedIds] = React.useState<Set<string>>(new Set());
+  const [lastSelectedId, setLastSelectedId] = React.useState<string | null>(null);
+  const [folderPickerAnchor, setFolderPickerAnchor] = React.useState<DOMRect | null>(null);
+  const [menuAnchor, setMenuAnchor] = React.useState<DOMRect | null>(null);
+  const [bulkAnchor, setBulkAnchor] = React.useState<DOMRect | null>(null);
 
   const completed = jobs.filter((job) => job.status === JobStatus.DONE && !trashedJobs[job.id]);
   if (completed.length === 0) {
@@ -83,6 +87,7 @@ export function TranscriptsList({ jobs, onOpenTranscript, emptyLabel }: Transcri
   }
 
   const groups = groupHistoryByDate(completed).sort((a, b) => b.sortKey - a.sortKey);
+  const orderedIds = groups.flatMap((group) => group.items.map((item) => item.id));
   const filteredFolders = folders.filter((folder) =>
     folder.toLowerCase().includes(folderSearch.trim().toLowerCase())
   );
@@ -117,6 +122,27 @@ export function TranscriptsList({ jobs, onOpenTranscript, emptyLabel }: Transcri
       }
       return next;
     });
+    setLastSelectedId(jobId);
+  };
+
+  const selectRange = (targetId: string) => {
+    if (!lastSelectedId) {
+      toggleSelection(targetId);
+      return;
+    }
+    const startIndex = orderedIds.indexOf(lastSelectedId);
+    const endIndex = orderedIds.indexOf(targetId);
+    if (startIndex === -1 || endIndex === -1) {
+      toggleSelection(targetId);
+      return;
+    }
+    const [from, to] = startIndex < endIndex ? [startIndex, endIndex] : [endIndex, startIndex];
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      orderedIds.slice(from, to + 1).forEach((id) => next.add(id));
+      return next;
+    });
+    setLastSelectedId(targetId);
   };
 
   const handleBulkAssign = (folder: string) => {
@@ -138,6 +164,21 @@ export function TranscriptsList({ jobs, onOpenTranscript, emptyLabel }: Transcri
     setSelectedIds(new Set());
   };
 
+  const getPopoverStyle = (anchor: DOMRect | null, width: number, maxHeight: number) => {
+    if (!anchor) {
+      return { top: 0, left: 0 };
+    }
+    const padding = 8;
+    const top = Math.min(anchor.bottom + padding, window.innerHeight - maxHeight - padding);
+    const left = Math.min(anchor.left, window.innerWidth - width - padding);
+    return {
+      top: Math.max(padding, top),
+      left: Math.max(padding, left),
+      width,
+      maxHeight,
+    };
+  };
+
   return (
     <div className="space-y-6">
       {groups.map((group) => (
@@ -145,7 +186,9 @@ export function TranscriptsList({ jobs, onOpenTranscript, emptyLabel }: Transcri
           <p className="text-[13px] uppercase tracking-wide text-muted-foreground">{group.label}</p>
           <div className="space-y-2">
             {group.items.map((job) => {
-              const fileName = job.originalAudioPath.split(/[/\\]/).pop() || 'Unknown file';
+              const fileName = job.originalAudioPath
+                ? job.originalAudioPath.split(/[/\\]/).pop() || 'Unknown file'
+                : 'Unknown file';
               const durationText = formatDuration(job.audioDurationSeconds);
               const assignedFolder = jobFolders[job.id];
               const isMenuOpen = openMenuFor === job.id;
@@ -157,7 +200,11 @@ export function TranscriptsList({ jobs, onOpenTranscript, emptyLabel }: Transcri
                 <div
                   key={job.id}
                   className="group relative"
-                  onClick={() => {
+                  onClick={(event) => {
+                    if (event.shiftKey) {
+                      selectRange(job.id);
+                      return;
+                    }
                     if (selectedCount === 0) {
                       onOpenTranscript(job.id);
                     } else {
@@ -175,7 +222,11 @@ export function TranscriptsList({ jobs, onOpenTranscript, emptyLabel }: Transcri
                         } ${isSelected ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}
                         onClick={(event) => {
                           event.stopPropagation();
-                          toggleSelection(job.id);
+                          if (event.shiftKey) {
+                            selectRange(job.id);
+                          } else {
+                            toggleSelection(job.id);
+                          }
                         }}
                         type="button"
                       >
@@ -210,6 +261,7 @@ export function TranscriptsList({ jobs, onOpenTranscript, emptyLabel }: Transcri
                             className="flex items-center gap-2 rounded-md border border-border/70 bg-card px-2.5 py-1 text-[14px] text-muted-foreground hover:bg-muted"
                             onClick={(event) => {
                               event.stopPropagation();
+                              setFolderPickerAnchor(event.currentTarget.getBoundingClientRect());
                               setOpenFolderPickerFor(isFolderOpen ? null : job.id);
                               setFolderSearch('');
                               setNewFolderName('');
@@ -222,7 +274,8 @@ export function TranscriptsList({ jobs, onOpenTranscript, emptyLabel }: Transcri
                           </button>
                           {isFolderOpen && (
                             <div
-                              className="absolute right-0 top-8 z-50 w-56 rounded-md border border-border/70 bg-card p-2 text-[14px] shadow-md"
+                              className="fixed z-50 rounded-md border border-border/70 bg-card p-2 text-[14px] shadow-md overflow-y-auto"
+                              style={getPopoverStyle(folderPickerAnchor, 224, 240)}
                               onClick={(event) => event.stopPropagation()}
                               onMouseLeave={() => setOpenFolderPickerFor(null)}
                             >
@@ -277,6 +330,7 @@ export function TranscriptsList({ jobs, onOpenTranscript, emptyLabel }: Transcri
                           className="rounded-md border border-border/70 bg-card px-2 py-1 text-muted-foreground hover:bg-muted"
                           onClick={(event) => {
                             event.stopPropagation();
+                            setMenuAnchor(event.currentTarget.getBoundingClientRect());
                             setOpenMenuFor(isMenuOpen ? null : job.id);
                           }}
                           type="button"
@@ -285,7 +339,8 @@ export function TranscriptsList({ jobs, onOpenTranscript, emptyLabel }: Transcri
                         </button>
                         {isMenuOpen && (
                           <div
-                            className="absolute right-0 top-12 z-50 w-40 rounded-md border border-border/70 bg-card py-1 text-[14px] text-foreground shadow-md"
+                            className="fixed z-50 rounded-md border border-border/70 bg-card py-1 text-[14px] text-foreground shadow-md"
+                            style={getPopoverStyle(menuAnchor, 160, 180)}
                             onClick={(event) => event.stopPropagation()}
                             onMouseLeave={() => setOpenMenuFor(null)}
                           >
@@ -339,7 +394,10 @@ export function TranscriptsList({ jobs, onOpenTranscript, emptyLabel }: Transcri
             <div className="relative">
               <button
                 className="flex items-center gap-2 rounded-full border border-border/70 bg-card px-3 py-1 text-[14px] text-muted-foreground hover:bg-muted"
-                onClick={() => setOpenFolderPickerFor(openFolderPickerFor === 'bulk' ? null : 'bulk')}
+                onClick={(event) => {
+                  setBulkAnchor(event.currentTarget.getBoundingClientRect());
+                  setOpenFolderPickerFor(openFolderPickerFor === 'bulk' ? null : 'bulk');
+                }}
                 type="button"
               >
                 <Folder className="h-4 w-4" />
@@ -348,7 +406,8 @@ export function TranscriptsList({ jobs, onOpenTranscript, emptyLabel }: Transcri
               </button>
               {openFolderPickerFor === 'bulk' && (
                 <div
-                  className="absolute right-0 bottom-10 z-50 w-56 rounded-md border border-border/70 bg-card p-2 text-[14px] shadow-md"
+                  className="fixed z-50 rounded-md border border-border/70 bg-card p-2 text-[14px] shadow-md overflow-y-auto"
+                  style={getPopoverStyle(bulkAnchor, 224, 240)}
                   onMouseLeave={() => setOpenFolderPickerFor(null)}
                 >
                   <div className="mb-2 flex items-center gap-2 rounded-md border border-border/70 bg-background px-2 py-1 text-muted-foreground">

@@ -97,7 +97,7 @@ export function SearchOverlay({ onClose, onOpenTranscript }: SearchOverlayProps)
               <div className="absolute right-full top-1/2 mr-2 flex -translate-y-1/2 items-center gap-1 text-[13px] text-[#9DBAE6]">
                 <span>Filters active</span>
                 <button
-                  className="rounded-full px-1 text-[#9DBAE6] hover:bg-[#9DBAE6]/20"
+                  className="close-button rounded-full px-1 text-[#9DBAE6] hover:bg-[#9DBAE6]/20"
                   onClick={clearFilters}
                   type="button"
                 >
@@ -149,7 +149,7 @@ export function SearchOverlay({ onClose, onOpenTranscript }: SearchOverlayProps)
             )}
           </div>
           <button
-            className="tooltip rounded-md border border-border/60 bg-background px-2 py-1 text-muted-foreground hover:bg-muted"
+            className="tooltip close-button rounded-md border border-border/60 bg-background px-2 py-1 text-muted-foreground hover:bg-muted"
             data-tooltip="Close"
             onClick={onClose}
             type="button"

@@ -23,6 +23,9 @@ contextBridge.exposeInMainWorld('electronAPI', {
   getModels: () => ipcRenderer.invoke(IPC_CHANNELS.GET_MODELS),
   getSettings: () => ipcRenderer.invoke(IPC_CHANNELS.GET_SETTINGS),
   setSettings: (settings: any) => ipcRenderer.invoke(IPC_CHANNELS.SET_SETTINGS, settings),
+  windowMinimize: () => ipcRenderer.invoke(IPC_CHANNELS.WINDOW_MINIMIZE),
+  windowToggleMaximize: () => ipcRenderer.invoke(IPC_CHANNELS.WINDOW_TOGGLE_MAXIMIZE),
+  windowClose: () => ipcRenderer.invoke(IPC_CHANNELS.WINDOW_CLOSE),
   
   // Event listeners
   onJobProgress: (callback: (data: any) => void) => {

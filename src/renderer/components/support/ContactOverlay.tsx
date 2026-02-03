@@ -71,7 +71,7 @@ export function ContactOverlay({ onClose }: ContactOverlayProps) {
             <h2 className="text-[20px] font-semibold">Contact us</h2>
           </div>
           <button
-            className="tooltip rounded-md border border-border/60 bg-background px-2 py-1 text-muted-foreground hover:bg-muted"
+            className="tooltip close-button rounded-md border border-border/60 bg-background px-2 py-1 text-muted-foreground hover:bg-muted"
             data-tooltip="Close"
             onClick={onClose}
             type="button"
