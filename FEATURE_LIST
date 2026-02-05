@@ -1,0 +1,54 @@
+
+
+
+
+################## new UI / fonctionality
+
+1. Add folder , be able to do it in side bar when you hover over the toggle hover - but not ogger just hte line there appears a + and with black informative popup
+2. The top bar with minimize close, etc. should stay in place, even when scrolling, and should be ever present!!! Can't disappear!! and bit bigger
+3. Put the settings quality and speed by default on speed!! choice. So highlight htis choice by default when person first installs app
+4. Can you make the loading bar more smooth, because now really appears by chucnks, take best practices for this one! but still repsect the actually progress! must be very UI friendly for user
+5. For the informative balck pop ups: 
+- in the fileter icon, make it appear on top, and overlay on all the rest!!! can't be behind other items, and go gou part outside the search box
+- in the trash, the close informative pop up also gets cut by border of trash pop up - can you make it front item, like overlay on all rest! like the cross of the search!! 
+
+
+
+
+################## MORE COMPLEX
+
+UI: with images:
+- the little bread crumble like Granole for my transcripts and folder (!) - is cleaner
+
+
+# Fix windows finding the download suspicious... absolutely needs to be fixed!! "Never downloaded something of this kind"
+
+# Fix performance!! 
+
+# Make website : also making it easy to download - and explain how to get recording in the application! 
+- In term, this should get easier to get audio from iPhone to this application... but how?
+
+# UI
+- fix icon
+- brand name and presence more in app
+- drag & drop zone
+
+
+# implement sub folders in folders --- but how? while keeping it clean , look at granola!
+
+
+
+# There should be a UI elemnts that when processing an audio, should already see a bit the text that appears, but in a minimal way, to see bit what is being produced
+# The timestemaps: the output of the txt that appears in the transcript screen, now have the timestamps like [00:00:36.000 --> 00:00:38.000], which is fine. But would of course be nicer if it was more UI friendly packages. But when you copy paste it by sleecting still have the normal, because for chatgpt still needs to be able to copy, but could be a bit prettier
+
+
+
+# !!!!! MAYBE - would actually add lots of value: should have a copy with prompt button --> this button create a copy with the transcript and chatGPT meeting minute instruction!!! so that you can prompt chatGPT and have the CR, maybe different legnths as well (full - medium length - short) - and in fonction of the length of the audio in differnents splits (1h30 -> in 4 parts) ; with the whole shell. Also asking the participants, and if possible some context per participant! 
+
+#### PERFORMANCE ####
+- Model bugger avec long audio... how to solve, run tests?
+- also speed
+- reliability
+---> how to fix??? And is it because of model type? Memory? Run in parallel? by cutting up audio? 
+
+# UI: can you have under the icon, also a charging bar in blue of the template, for the transcript that is currently loading? so the icon in the taskbar of windows
